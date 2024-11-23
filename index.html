@@ -5,44 +5,61 @@
   <link rel="stylesheet" href="styleone.css">
   </head>
   <body>
-    <div class="page">
-      <div class="header">
+    <div class="wrapper">
+      <header>
+        <figure>
         <img class="library" src="librarypic.jpeg" alt="Library" />
-      </div>
+        <figcaption>Welcome to Verda Library</figcaption>
+        </figure>
+      </header>
 
-      <div class="nav">
+      <nav>
         <ul class="one">
         <li class="poop"><a href="#" class="on">Home</a></li>
-        <li class="poop"><a href="#">Adventure</a></li>
+        <li class="poop"><a href="adventure.html">NonFiction</a></li>
         <li class="poop"><a href="#">Mystery</a></li>
         <li class="poop"><a href="#">Fantasy</a></li>
         <li class="poop"><a href="#">Romance</a></li>
         </ul>
-      </div>
+      </nav>
 
-      <div class="content">
+      <section class="content">
 
-      <div class="leftcolumn">
+      <article class="leftcolumn">
         <h3>Listen with us</h3>
       <iframe src="https://open.spotify.com/embed/track/1l8wtuVI5gQ90NXEeUFAjX?utm_source=generator&theme=0" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
-        </div>
+        </article>
 
-      <div class="rightcolumn">
+      <aside class="rightcolumn">
       <h3>Top October Books</h3>
-  <ul class="two">
-    <li>Age of Innocence</li>
-    <li>The Bell Jar</li>
-    <li>The Silent Patient</li>
-    <li>War and Peace</li>
-  </ul>
-      </div>
+  <div class="two">
+      <details>
+        <summary> Age of Innocence </summary>
+        <p>By: Edith Wharton</p>
+      </details>
 
-      </div>
+      <details>
+        <summary>The Bell Jar</summary>
+        <p>By: Sylvia Plath</p>
+      </details>
 
-      <div class="footer">
+        <details>
+          <summary>The Silent Patient</summary>
+          <p>By: Alex Michaelides</p>
+        </details>
+
+        <details>
+          <summary>War and Peace</summary>
+          <p>By: Leo Tolstoy</p>
+        </details>
+        <div>
+      </aside>
+      </section>
+
+      <footer>
   <a href="contactform.html">Contact</a>
   <h4>Verda Korzeniewski</h4>
-      </div>
+      </footer>
     </div>
   </body>
 </html>
