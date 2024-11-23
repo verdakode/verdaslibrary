@@ -1,0 +1,106 @@
+body {
+    text-align: center;
+    font-size: 100%;
+    font-family: "Georgia" ;
+    letter-spacing: 0.15em;
+    background-color: #fefcd8 ;
+}
+.page {
+    background-color: #744700;
+    max-width: 70%;
+    min-width: 65%;
+    margin: auto;
+    width: auto;
+    border: 0.3em solid #000;
+    box-shadow: -0.3em -0.3em #777777;
+    height:50em;
+}
+#contactpage {
+    width: 700px;
+    margin: 10px auto 10px auto;
+}
+.header {
+    width=90%;
+}
+ul.one {
+    border-top: 0.2em solid #000;
+    border-bottom: 0.1em solid #000;
+    padding: 2em;
+}
+ul.two {
+    width: 85%;
+    padding-top:2.5%;
+    list-style-position: outside;
+    list-style-type: lower-roman;
+}
+.nav {
+    width:80%;
+    margin:2%;
+    font-size:80%;
+    display:inline-block;
+  }
+.content {
+      width: 85%;
+      margin: auto;
+      overflow: hidden;
+}
+.leftcolumn {
+    float: left;
+    width: 45%;
+}
+.rightcolumn {
+    float:right;
+    width:45%;
+    overflow:auto;
+}
+.footer {
+    margin:auto;
+    padding: 2%;
+    width:80%;
+    border-top: solid 0.1em #000;
+    border-bottom: solid 0.2em #000;
+    position:relative;
+    top:3%;
+}
+  li {
+    margin: auto;
+}
+li.poop {
+    display: inline;
+}
+a {
+    color: #000000;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 1% 2% 1% 2%;
+}
+a:hover {
+    color:#000000;
+    background-color: #ffffff;
+}
+.library{
+    width:50%;
+    display: block;
+    margin: 3% auto 1% auto;
+    padding: 1%;
+    border: 0.4em solid #000;
+}
+input:hover {
+    color:#ff1493;
+    background-color: #ffffff;
+    border-bottom:1% solid black;
+    text-shadow:0.5% 0.5% 1% #ffb6c1;
+}
+table{
+    border:0.2em solid #000;
+    background-color:#ffb6c1;
+    padding:2%;
+    margin:2% auto;
+}
+iframe{
+    border-radius:1em;
+    margin:2%;
+    border:0.2em solid #000;
+    width:85%;
+    height:5em;
+}
