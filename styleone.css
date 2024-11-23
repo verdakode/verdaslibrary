@@ -5,7 +5,7 @@ body {
     letter-spacing: 0.15em;
     background-color: #fefcd8 ;
 }
-.page {
+.wrapper {
     background-color: #744700;
     max-width: 70%;
     min-width: 65%;
@@ -13,14 +13,24 @@ body {
     width: auto;
     border: 0.3em solid #000;
     box-shadow: -0.3em -0.3em #777777;
-    height:50em;
+    height:fit-content;
 }
 #contactpage {
     width: 700px;
     margin: 10px auto 10px auto;
 }
-.header {
+header {
     width=90%;
+}
+figcaption {
+    font-size:140%;
+    font-weight: bold;
+    width:80%;
+    margin:3% auto;
+}
+figure {
+    width:60%;
+    margin:auto;
 }
 ul.one {
     border-top: 0.2em solid #000;
@@ -33,7 +43,7 @@ ul.two {
     list-style-position: outside;
     list-style-type: lower-roman;
 }
-.nav {
+nav {
     width:80%;
     margin:2%;
     font-size:80%;
@@ -53,7 +63,13 @@ ul.two {
     width:45%;
     overflow:auto;
 }
-.footer {
+
+.column {
+    width: 75%;
+    background-color: #fefcd8;
+    margin:2em;
+}
+footer {
     margin:auto;
     padding: 2%;
     width:80%;
@@ -62,7 +78,7 @@ ul.two {
     position:relative;
     top:3%;
 }
-  li {
+li {
     margin: auto;
 }
 li.poop {
@@ -78,12 +94,13 @@ a:hover {
     color:#000000;
     background-color: #ffffff;
 }
-.library{
-    width:50%;
+.library {
+    width:80%;
+    height:20%;
     display: block;
-    margin: 3% auto 1% auto;
-    padding: 1%;
-    border: 0.4em solid #000;
+    margin: 5% auto;
+    padding: 3%;
+    border: 0.5em solid #000;
 }
 input:hover {
     color:#ff1493;
@@ -91,16 +108,40 @@ input:hover {
     border-bottom:1% solid black;
     text-shadow:0.5% 0.5% 1% #ffb6c1;
 }
-table{
+table {
     border:0.2em solid #000;
     background-color:#ffb6c1;
     padding:2%;
     margin:2% auto;
 }
-iframe{
+iframe {
     border-radius:1em;
     margin:2%;
     border:0.2em solid #000;
     width:85%;
     height:5em;
+}
+aside {
+    float:right;
+}
+.flex-container {
+    display:flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+}
+img.books {
+    float: left;
+    width: 6em;
+    height: 7em;
+}
+h2.books {
+    background-color:tan;
+}
+li.sci {
+    height:10em;
+}
+p.nonfic {
+    text-indent: 3em;
+    letter-spacing: normal;
+    line-height:1em;
 }
