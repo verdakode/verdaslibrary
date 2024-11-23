@@ -20,7 +20,7 @@ body {
 }
 
 /* Layout */
-body .wrapper {
+.wrapper {
     background-color: #744700;  /* Use direct color */
     width: 70%;
     min-width: 65%;
