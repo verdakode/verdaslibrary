@@ -1,147 +1,139 @@
+/* Base styles */
+:root {
+    --primary-color: #744700;
+    --background-color: #fefcd8;
+    --border-color: #000;
+    --shadow-color: #777777;
+    --hover-background: #ffffff;
+    --accent-pink: #ff1493;
+    --light-pink: #ffb6c1;
+}
+
 body {
     text-align: center;
     font-size: 100%;
-    font-family: "Georgia" ;
+    font-family: "Georgia", serif;
     letter-spacing: 0.15em;
-    background-color: #fefcd8 ;
+    background-color: var(--background-color);
+    margin: 0;
+    padding: 0;
 }
+
+/* Layout */
 .wrapper {
-    background-color: #744700;
-    max-width: 70%;
+    background-color: var(--primary-color);
+    width: 70%;
     min-width: 65%;
-    margin: auto;
-    width: auto;
-    border: 0.3em solid #000;
-    box-shadow: -0.3em -0.3em #777777;
-    height:fit-content;
+    margin: 0 auto;
+    border: 0.3em solid var(--border-color);
+    box-shadow: -0.3em -0.3em var(--shadow-color);
+    height: fit-content;
 }
-#contactpage {
-    width: 700px;
-    margin: 10px auto 10px auto;
-}
-header {
-    width=90%;
-}
-figcaption {
-    font-size:140%;
-    font-weight: bold;
-    width:80%;
-    margin:3% auto;
-}
-figure {
-    width:60%;
-    margin:auto;
-}
-ul.one {
-    border-top: 0.2em solid #000;
-    border-bottom: 0.1em solid #000;
-    padding: 2em;
-}
-ul.two {
+
+.content {
     width: 85%;
-    padding-top:2.5%;
+    margin: auto;
+    overflow: hidden;
+    display: flex;
+    justify-content: space-between;
+}
+
+/* Header and Navigation */
+header {
+    width: 90%;
+    margin: 0 auto;
+}
+
+figure {
+    width: 60%;
+    margin: auto;
+}
+
+figcaption {
+    font-size: 140%;
+    font-weight: bold;
+    width: 80%;
+    margin: 3% auto;
+}
+
+nav {
+    width: 80%;
+    margin: 2%;
+    font-size: 80%;
+    display: inline-block;
+}
+
+/* Navigation Lists */
+.one {
+    border-top: 0.2em solid var(--border-color);
+    border-bottom: 0.1em solid var(--border-color);
+    padding: 2em;
+    list-style: none;
+}
+
+.one li {
+    display: inline;
+    margin: 0 1em;
+}
+
+.two {
+    width: 85%;
+    padding-top: 2.5%;
     list-style-position: outside;
     list-style-type: lower-roman;
 }
-nav {
-    width:80%;
-    margin:2%;
-    font-size:80%;
-    display:inline-block;
-  }
-.content {
-      width: 85%;
-      margin: auto;
-      overflow: hidden;
+
+/* Links */
+a {
+    color: var(--border-color);
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 1% 2%;
+    transition: background-color 0.3s ease;
 }
-.leftcolumn {
-    float: left;
+
+a:hover {
+    color: var(--border-color);
+    background-color: var(--hover-background);
+}
+
+/* Columns */
+.leftcolumn,
+.rightcolumn {
     width: 45%;
 }
+
+.leftcolumn {
+    float: left;
+}
+
 .rightcolumn {
-    float:right;
-    width:45%;
-    overflow:auto;
+    float: right;
+    overflow: auto;
 }
 
 .column {
     width: 75%;
-    background-color: #fefcd8;
-    margin:2em;
+    background-color: var(--background-color);
+    margin: 2em;
 }
-footer {
-    margin:auto;
-    padding: 2%;
-    width:80%;
-    border-top: solid 0.1em #000;
-    border-bottom: solid 0.2em #000;
-    position:relative;
-    top:3%;
-}
-li {
-    margin: auto;
-}
-li.poop {
-    display: inline;
-}
-a {
-    color: #000000;
-    text-transform: uppercase;
-    text-decoration: none;
-    padding: 1% 2% 1% 2%;
-}
-a:hover {
-    color:#000000;
-    background-color: #ffffff;
-}
+
+/* Images */
 .library {
-    width:80%;
-    height:20%;
+    width: 80%;
+    height: auto;
     display: block;
     margin: 5% auto;
     padding: 3%;
-    border: 0.5em solid #000;
+    border: 0.5em solid var(--border-color);
 }
-input:hover {
-    color:#ff1493;
-    background-color: #ffffff;
-    border-bottom:1% solid black;
-    text-shadow:0.5% 0.5% 1% #ffb6c1;
-}
-table {
-    border:0.2em solid #000;
-    background-color:#ffb6c1;
-    padding:2%;
-    margin:2% auto;
-}
-iframe {
-    border-radius:1em;
-    margin:2%;
-    border:0.2em solid #000;
-    width:85%;
-    height:5em;
-}
-aside {
-    float:right;
-}
-.flex-container {
-    display:flex;
-    flex-flow: row wrap;
-    justify-content: space-around;
-}
-img.books {
+
+.books {
     float: left;
     width: 6em;
     height: 7em;
 }
-h2.books {
-    background-color:tan;
-}
-li.sci {
-    height:10em;
-}
-p.nonfic {
-    text-indent: 3em;
-    letter-spacing: normal;
-    line-height:1em;
-}
+
+/* Footer */
+footer {
+    margin: auto;
