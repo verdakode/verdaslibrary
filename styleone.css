@@ -20,7 +20,7 @@ body {
 }
 
 /* Layout */
-.wrapper {
+body .wrapper {
     background-color: #744700;  /* Use direct color */
     width: 70%;
     min-width: 65%;
@@ -28,8 +28,6 @@ body {
     border: 0.3em solid #000;
     box-shadow: -0.3em -0.3em #777777;
     height: fit-content;
-    /* Add this to test if class is being recognized */
-    border: 5px solid red;
 }
 
 .content {
