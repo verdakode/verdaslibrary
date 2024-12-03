@@ -36,6 +36,7 @@ body {
     overflow: hidden;
     display: flex;
     justify-content: space-between;
+    flex-wrap: wrap; /* Allow wrapping on smaller screens */
 }
 
 /* Header and Navigation */
@@ -137,4 +138,86 @@ a:hover {
 /* Footer */
 footer {
     margin: auto;
+}
+
+/* Media Queries for Mobile Responsiveness */
+
+/* For smaller devices, like mobile phones */
+@media (max-width: 767px) {
+    /* Adjust wrapper to take full width */
+    .wrapper {
+        width: 100%;
+        margin: 0;
+        border: none;
+        box-shadow: none;
+    }
+
+    /* Stack content sections vertically */
+    .content {
+        display: block;
+    }
+
+    /* Adjust navigation to a vertical list */
+    .one li {
+        display: block;
+        margin: 1em 0;
+    }
+
+    /* Adjust header and figure width */
+    figure {
+        width: 80%;
+    }
+
+    .library {
+        width: 100%;
+    }
+
+    /* Make columns stack on smaller screens */
+    .leftcolumn, .rightcolumn {
+        width: 100%;
+        float: none;
+    }
+
+    .two {
+        padding: 0;
+    }
+
+    /* Adjust font size for small screens */
+    figcaption {
+        font-size: 120%;
+    }
+
+    /* Adjust footer to be centered and stack */
+    footer {
+        text-align: center;
+        padding: 1em;
+    }
+
+    /* Make the navigation items fit well on small screens */
+    nav {
+        width: 100%;
+        font-size: 100%;
+        margin-top: 2em;
+    }
+}
+
+/* For larger devices, like tablets or laptops */
+@media (max-width: 1024px) {
+    .content {
+        display: block;
+        width: 90%;
+    }
+
+    .leftcolumn, .rightcolumn {
+        width: 100%;
+        float: none;
+    }
+
+    .wrapper {
+        width: 85%;
+    }
+
+    figure {
+        width: 75%;
+    }
 }
