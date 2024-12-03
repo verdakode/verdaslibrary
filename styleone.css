@@ -199,6 +199,9 @@ footer {
         font-size: 100%;
         margin-top: 2em;
     }
+    h1 {
+      font-size: 60%;
+    }
 }
 
 /* For larger devices, like tablets or laptops */
