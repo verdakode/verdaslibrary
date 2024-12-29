@@ -34,7 +34,7 @@
         }
 
         .library {
-            width: 80%;
+            width: 45%;
             height: auto;
             display: block;
             margin: 5% auto;
@@ -56,7 +56,38 @@
             border-bottom: 1px dotted;
         }
 
-        /* Tab System */
+        .name-hover {
+            position: relative;
+            display: inline-block;
+            cursor: help;
+            border-bottom: 1px dotted;
+        }
+
+        .name-hover .tooltip {
+            visibility: hidden;
+            width: 300px;
+            background-color: var(--background-color);
+            color: var(--primary-color);
+            text-align: left;
+            padding: 1em;
+            border: 0.15em solid var(--border-color);
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -150px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-size: 85%;
+            letter-spacing: 0.1em;
+            line-height: 1.5;
+        }
+
+        .name-hover:hover .tooltip {
+            visibility: visible;
+            opacity: 1;
+        }
+
         .catalog-tabs {
             width: 85%;
             margin: 2em auto;
@@ -177,36 +208,27 @@
             }
         }
     </style>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const tabs = document.querySelectorAll('.tab-button');
-            const contents = document.querySelectorAll('.tab-content');
-
-            tabs.forEach(tab => {
-                tab.addEventListener('click', () => {
-                    // Remove active class from all tabs and contents
-                    tabs.forEach(t => t.classList.remove('active'));
-                    contents.forEach(c => c.classList.remove('active'));
-
-                    // Add active class to clicked tab and corresponding content
-                    tab.classList.add('active');
-                    document.querySelector(tab.dataset.tab).classList.add('active');
-                });
-            });
-
-            // Activate first tab by default
-            tabs[0].click();
-        });
-    </script>
 </head>
 <body>
     <div class="wrapper">
-        <img class="library" src="librarypic.jpeg" alt="Library space">
+        <img class="library" src="/api/placeholder/800/400" alt="Library space">
 
         <div class="bio">
-            verda (from mesa verde), crafting magical objects and pursuing wonder.
-            field notes on <a href="https://twitter.com/yourusername">x</a> |
-            experiments on <a href="https://instagram.com/yourusername">ig</a>
+            <span class="name-hover">verda
+                <span class="tooltip">
+                    Named after my great great grandmother from Mesa Verde
+                </span>
+            </span>
+            <span class="name-hover">korzeniewski
+                <span class="tooltip">
+                    Polish surname from Korzeniew, a small town in Poland
+                </span>
+            </span>
+            (from manistee, michigan), bringing ideas to life through rapid prototyping and creative exploration.
+            I love immersing myself in books and stories, but my true passion lies in making - whether through 3D printing, robotics, or code.
+            <br><br>
+            chaotic thoughts on <a href="https://x.com/verdakorz">x</a> |
+            younger adventures on <a href="https://instagram.com/yourusername">ig</a>
         </div>
 
         <div class="catalog-tabs">
@@ -294,5 +316,27 @@
             <a href="contactform.html">request interlibrary loan →</a>
         </footer>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const tabs = document.querySelectorAll('.tab-button');
+            const contents = document.querySelectorAll('.tab-content');
+
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    // Remove active class from all tabs and contents
+                    tabs.forEach(t => t.classList.remove('active'));
+                    contents.forEach(c => c.classList.remove('active'));
+
+                    // Add active class to clicked tab and corresponding content
+                    tab.classList.add('active');
+                    document.querySelector(tab.dataset.tab).classList.add('active');
+                });
+            });
+
+            // Activate first tab by default
+            tabs[0].click();
+        });
+    </script>
 </body>
 </html>
