@@ -3,24 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>mesa verde library</title>
-    <style>
+    <title>verda's library</title>
+<style>
         :root {
             --primary-color: #744700;
             --background-color: #fefcd8;
             --border-color: #000;
             --shadow-color: #777777;
             --hover-background: #ffffff;
+            --stamp-color: #691818;
+            --shelf-color: #8B4513;
+            --paper-texture: repeating-linear-gradient(
+                var(--background-color) 0px,
+                var(--background-color) 24px,
+                rgba(0,0,0,0.05) 25px
+            );
+        }
+
+        @font-face {
+            font-family: 'LibraryTypewriter';
+            src: local('Courier New');
         }
 
         body {
             text-align: center;
             font-size: 100%;
             font-family: "Georgia", serif;
-            letter-spacing: 0.15em;
+            letter-spacing: OAOA0.15em;
             background-color: var(--background-color);
+            background-image: var(--paper-texture);
             margin: 0;
-            padding: 0;
+            padding: 2em 0;
         }
 
         .wrapper {
@@ -31,6 +44,8 @@
             border: 0.3em solid #000;
             box-shadow: -0.3em -0.3em #777777;
             height: fit-content;
+            padding-bottom: 2em;
+            position: relative;
         }
 
         .library {
@@ -40,27 +55,93 @@
             margin: 5% auto;
             padding: 3%;
             border: 0.5em solid var(--border-color);
+            box-shadow: 0 0 10px rgba(0,0,0,0.2);
+     OAOA       background: white;
+            transition: transform 0.3s ease;
         }
 
-        .bio {
-            color: var(--background-color);
-            width: 80%;
+        .library:hover {
+            transform: scale(1.02);
+        }
+
+        .library-card {
+            background: var(--background-color);
+            background-image: var(--paper-texture);
+            border: 2px solid var(--border-color);
+            padding: 2em;
             margin: 2em auto;
-            font-size: 90%;
-            line-height: 1.6;
+            width: 85%;
+            position: relative;
+            font-family: 'LibraryTypewriter', monospace;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.16);
         }
 
-        .bio a {
+        .embossed {
+            color: var(--primary-color);
+            text-shadow:
+                -1px -1px 1px rgba(255,255,255,0.7),
+                1px 1px 1px rgba(0,0,0,0.3);
+            border: 1px solid rgba(0,0,0,0.15);
+            border-radius: 2px;
+            padding: 0.5em 1em;
+            position: relative;
+            background: rgba(255,255,255,0.1);
+        }
+
+        .date-stamp {
+            position: absolute;
+            top: 1em;
+            right: 1em;
+            color: var(--stamp-color);
+            font-family: 'LibraryTypewriter', monospace;
+            transform: rotate(-5deg);
+            border: 2px solid var(--stamp-color);
+            padding: 0.5em;
+            font-size: 80%;
+            background: rgba(255,255,255,0.9);
+            box-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .card-header {
+            border-bottom: 2px double var(--border-color);
+            margin-bottom: 1em;
+            padding-boOAOAttom: 1em;
+            text-align: left;
+        }
+
+        .catalog-number {
+            font-size: 80%;
+            color: var(--primary-color);
+            margin-bottom: 0.5em;
+            letter-spacing: 0.2em;
+        }
+
+        .section-label {
+            background: var(--primary-color);
             color: var(--background-color);
-            text-decoration: none;
-            border-bottom: 1px dotted;
+            padding: 0.5em 1em;
+            display: inline-block;
+            margin: 0.5em 0;
+            box-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+            transform: rotate(-1deg);
+        }
+
+        .card-content {
+            text-align: left;
+            line-height: 1.6;
+            padding: 1em;
+            background: rgba(255,255,255,0.4);
+            border: 1px solid rgba(0,0,0,0.1);
+            margin: 1em 0;
         }
 
         .name-hover {
             position: relative;
             display: inline-block;
             cursor: help;
-            border-bottom: 1px dotted;
+            border-bottom: 1px dotted var(--primary-color);
+            color: var(--primary-color);
+            font-weight: bold;
         }
 
         .name-hover .tooltip {
@@ -70,271 +151,560 @@
             color: var(--primary-color);
             text-align: left;
             padding: 1em;
-            border: 0.15em solid var(--border-color);
+            border: 1px solid var(--border-color);
+            box-shadow: 3px 3px 10px rgba(0,0,0,0.2);
             position: absolute;
             z-index: 1;
             bottom: 125%;
             left: 50%;
             margin-left: -150px;
-            opacity: 0;
-            transition: opacity 0.3s;
-            font-size: 85%;
-            letter-spacing: 0.1em;
-            line-height: 1.5;
+            OAOAopacity: 0;
+            transition: opacity 0.3s, transform 0.3s;
+            transform: translateY(10px);
         }
 
         .name-hover:hover .tooltip {
             visibility: visible;
             opacity: 1;
+            transform: translateY(0);
         }
 
-        .catalog-tabs {
-            width: 85%;
-            margin: 2em auto;
-            background: var(--background-color);
-            border: 0.2em solid var(--border-color);
-            padding: 0.5em 0.5em 2em 0.5em;
+        .signature {
+            font-family: 'Brush Script MT', cursive;
+            color: var(--stamp-color);
+            font-size: 1.8em;
+            transform: rotate(-8deg);
+            position: absolute;
+            bottom: 2em;
+            right: 3em;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+            opacity: 0.9;
         }
 
-        .tabs {
+        .library-stamp {
+            position: absolute;
+            bottom: 3em;
+            left: 2em;
+            color: var(--stamp-color);
+          OAOA  font-family: 'LibraryTypewriter', monospace;
+            font-size: 0.8em;
+            border: 2px solid var(--stamp-color);
+            padding: 1em;
+            transform: rotate(-15deg);
+            opacity: 0.8;
+            background: rgba(255,255,255,0.9);
+            box-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .navigation-tabs {
             display: flex;
-            margin-bottom: -1px;
-            padding: 0;
-            list-style: none;
+            gap: 0.5em;
+            margin: 2em auto;
+            width: 85%;
+            justify-content: center;
+            flex-wrap: wrap;
             position: relative;
-            top: -1.5em;
-            gap: 0.3em;
-        }
-
-        .tab-button {
-            background: var(--background-color);
-            border: 0.15em solid var(--border-color);
-            padding: 0.8em 1.5em;
-            margin: 0;
-            cursor: pointer;
-            font-family: Georgia, serif;
-            letter-spacing: 0.1em;
-            font-size: 90%;
-            position: relative;
-            color: var(--primary-color);
-        }
-
-        .tab-button.active {
-            background: var(--hover-background);
-            border-bottom-color: var(--hover-background);
             z-index: 2;
         }
 
-        .tab-content {
-            display: none;
-            background: var(--hover-background);
-            padding: 2em;
-            border: 0.15em solid var(--border-color);
-            text-align: left;
-        }
-
-        .tab-content.active {
-            display: block;
-        }
-
-        .catalog-card {
+        .nav-tab {
             background: var(--background-color);
-            border: 0.15em solid var(--border-color);
-            padding: 1.5em;
-            margin: 1em 0;
+            border: 2px solid var(--border-color);
+            padding: 0.8em 1.5em;
+            cursor: pointer;
+            font-family: 'LibraryTypewriter', monospace;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+            font-size: 0.9em;
+            letter-spacing: 0.1em;
+            box-shadow: -2px -2px 5px rgba(255,255,255,0.5),
+                       2px 2px 5px rgba(0,0,0,0.1);
         }
 
-        .catalog-card h3 {
-            color: var(--primary-color);
-            margin: 0 0 1em 0;
-            font-size: 110%;
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 0.5em;
+        .nav-tab::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                120deg,
+                transparent,
+                rgba(255,255,255,0.3),
+                transparent
+            );
+            transition: 0.5s;
         }
 
-        .catalog-grid {
+        .nav-tab:hoveOAOAr::before {
+            left: 100%;
+        }
+
+        .nav-tab.active {
+            background: var(--primary-color);
+            color: var(--background-color);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        .library-section {
+            display: none;
+            background: var(--background-color);
+            margin: 2em auto;
+            width: 85%;
+            border: 2px solid var(--border-color);
+            padding: 2em;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        .library-section.active {
+            display: block;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0OAOA; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px double var(--border-color);
+            padding-bottom: 1em;
+            margin-bottom: 2em;
+        }
+
+        .dewey-decimal {
+            font-family: 'LibraryTypewriter', monospace;
+            color: var(--stamp-color);
+            font-size: 0.8em;
+            padding: 0.5em;
+            border: 1px solid var(--stamp-color);
+            background: rgba(255,255,255,0.9);
+        }
+
+        .card-catalog {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5em;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2em;
+            margin: 2em 0;
+        }
+
+        .catalog-drawer {
+            background: var(--hover-background);
+            border: 2px solid var(--border-color);
+            padding: 2em 1.5em;
+            position: relative;
+            box-shadow: -3px -3px 7px rgba(255,255,255,0.5),
+                       3px 3px 7px rgba(0,0,0,0.1);
+        }
+
+        .drawer-tab {
+            position: absolute;
+            top: -1.5em;
+            left: 1em;
+            background: var(--hover-background);
+            padding: 0.3em 1em;
+            border: 2px solid var(--border-color);
+            border-bottom: none;
+            font-family: 'LibraryTypewriter', monospace;
+            font-size: 0.8em;
+            box-shadow: -2px -2OAOApx 4px rgba(255,255,255,0.5);
+        }
+
+        .book {
+            background: var(--background-color);
+            border: 1px solid var(--border-color);
+            padding: 1.2em;
+            margin: 1em 0;
+            text-align: left;
+            font-family: 'LibraryTypewriter', monospace;
+            font-size: 0.9em;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .book:hover {
+            transform: translateY(-5px) rotate(1deg);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            background: var(--hover-background);
+        }
+
+        .book::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 20px;
+            height: 20px;
+            background: linear-gradient(135deg, transparent 50%, rgba(0,0,0,0.1) 50%);
+        }
+
+        .circulation-status {
+            color: var(--stamp-color);
+            font-size: 0.8em;
+            margin-top: 1em;
+            padding-top: 0.5em;
+            border-top: 1px dotted var(--border-color);
         }
 
         .due-date {
-            font-family: 'Courier New', monospace;
-            font-size: 80%;
-            color: var(--primary-color);
-            margin-top: 1em;
+            width: 100%;
+            margin: 1em 0;
+            border-collapse: collapse;
+            font-family: 'LibraryTypewriter', monospace;
+            font-size: 0.9em;
+            background: rgba(255,255,255,0.7);
+        }
+
+        .due-date th, .due-date td {
+            border: 1px solid var(--border-color);
+            padding: 0.8em;
+            text-align: left;
+        }
+
+        .due-date th {
+            background: var(--primary-color);
+            color: var(--background-color);
+        }
+
+        .due-date tr:nth-child(even) {
+            background: rgba(255,255,255,0.5);
         }
 
         footer {
             background: var(--background-color);
-            padding: 1em;
+            padding: 1.5em;
             margin-top: 2em;
-            border-top: 0.2em solid var(--border-color);
+            font-family: 'LibraryTypewriter', monospace;
+            border-top: 2px solid var(--border-color);
+            text-align: center;
+            position: relative;
+            background-image: var(--paper-texture);
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 20px;
+            background: var(--background-color);
+            border: 2px solid var(--border-color);
+            border-bottom: none;
+            border-radius: 10px 10px 0 0;
         }
 
         footer a {
             color: var(--primary-color);
             text-decoration: none;
+            display: inline-block;
+            margin-top: 1em;
+            padding: 0.5em 1em;
+            border: 1px solid var(--primary-color);
+            transition: all 0.3s ease;
+        }
+
+        footer a:hover {
+            background: var(--primary-color);
+            color: var(--background-color);
+            transform: translateY(-2px);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
         }
 
         @media (max-width: 767px) {
             .wrapper {
-                width: 100%;
-                border: none;
+                width: 95%;
+                border-width: 0.2em;
                 box-shadow: none;
             }
 
-            .catalog-tabs {
-                width: 95%;
-                padding: 0.5em;
+            .library-section {
+                width: 90%;
+                padding: 1em;
             }
 
-            .tabs {
-                flex-direction: column;
-                gap: 0.5em;
+            .navigation-tabs {
+              flex-direction: column;
+              width: 90%;
             }
 
-            .tab-button {
+            .card-catalog {
+              grid-template-columns: 1fr;
+            }
+
+            .library {
+              width: 90%;
+              padding: 2%;
+            }
+
+            .library-card {
+              width: 90%;
+              padding: 1em;
+            }
+
+
+            .signature {
+              font-size: 1.4em;
+              bottom: 1em;
+              right: 1em;
+            }
+
+            .library-stamp {
+              font-size: 0.7em;
+              bottom: 2em;
+              left: 1em;
+              padding: 0.8em;
+            }
+
+            .nav-tab {
                 width: 100%;
-                text-align: left;
+                margin: 0.2em 0;
             }
 
-            .tab-button.active {
-                border-bottom-color: var(--border-color);
+            .catalog-drawer {
+                margin-top: 2em;
             }
 
-            .catalog-grid {
-                grid-template-columns: 1fr;
+            .card-content {
+                padding: 0.8em;
             }
+
+            .name-hover .tooltip {
+                width: 80%;
+                left: 10%;
+                margin-left: 0;
+            }
+        }
+
+        /* Animation keyframes */
+        @keyframes stampIn {
+            from {
+                opacity: 0;
+                transform: rotate(-25deg) scale(1.5);
+            }
+            to {
+                opacity: 0.8;
+                transform: rotate(-15deg) scale(1);
+            }
+        }
+
+        @keyframes pageFlip {
+            0% {
+                transform: rotateY(0deg);
+            }
+            100% {
+                transform: rotateY(180deg);
+            }
+        }
+
+        /* Additional effects */
+        .book-spine {
+            position: absolute;
+            left: -10px;
+            top: 0;
+            bottom: 0;
+            width: 10px;
+            background: var(--primary-color);
+            transform: skewY(-45deg);
+            transform-origin: top;
+        }
+
+        .page-corner {
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 0 0 20px 20px;
+            border-color: transparent transparent rgba(0,0,0,0.1) transparent;
         }
     </style>
 </head>
 <body>
     <div class="wrapper">
-        <img class="library" src="librarypic.jpeg" alt="Library space">
+        <!-- Home Section -->
+        <div id="home" class="library-section active">
+            <img class="library" src="/api/placeholder/800/400" alt="Library space">
 
-        <div class="bio">
-            <span class="name-hover">verda
-                <span class="tooltip">
-                    Named after my great great grandmother from Mesa Verde
-                </span>
-            </span>
-            <span class="name-hover">korzeniewski
-                <span class="tooltip">
-                    Polish surname from Korzeniew, a small town in Poland
-                </span>
-            </span>
-            (from manistee, michigan), bringing ideas to life through rapid prototyping and creative exploration.
-            I love immersing myself in books and stories, but my true passion lies in making - whether through 3D printing, robotics, or code.
-            <br><br>
-            chaotic thoughts on <a href="https://x.com/verdakorz">x</a> |
-            younger adventures on <a href="https://instagram.com/yourusername">ig</a>
-        </div>
+            <div class="library-card embossed">
+                <div class="date-stamp">DEC 29 2024</div>
+                <div class="card-header">
+                    <div class="catalog-number">CALL NO: MV.2024.01</div>
+                    <h2>BORROWER RECORD</h2>
+                    <div class="section-label">SPECIAL COLLECTIONS</div>
+                </div>
 
-        <div class="catalog-tabs">
-            <ul class="tabs">
-                <li class="tab-button" data-tab="#books">Books</li>
-                <li class="tab-button" data-tab="#running">Running</li>
-                <li class="tab-button" data-tab="#printing">3D Printing</li>
-                <li class="tab-button" data-tab="#manifestos">Manifestos</li>
-                <li class="tab-button" data-tab="#projects">Projects</li>
-            </ul>
+                <div class="card-content">
+                    <span class="name-hover">verda
+                        <span class="tooltip">Named after my great great grandmother from Mesa Verde</span>
+                    </span>
+                    <span class="name-hover">korzeniewski
+                        <span class="tooltip">Polish surname from Korzeniew, a small town in Poland</span>
+                    </span>
+                    (from manistee, michigan), bringing ideas to life through rapid prototyping and creative exploration.
 
-            <div id="books" class="tab-content">
-                <div class="catalog-grid">
-                    <div class="catalog-card">
-                        <h3>Currently Reading</h3>
-                        <p>[Current book title and thoughts]</p>
-                        <div class="due-date">Due: JAN 15 2025</div>
-                    </div>
-                    <div class="catalog-card">
-                        <h3>Recent Returns</h3>
-                        <p>[Recently finished books]</p>
-                        <div class="due-date">Returned: DEC 20 2024</div>
+                    <div class="socials">
+                        field notesOC: <a href="https://x.com/verdakorz">x</a> |
+                        experiments: <a href="https://instagram.com/yourusername">ig</a>
                     </div>
                 </div>
-            </div>
 
-            <div id="running" class="tab-content">
-                <div class="catalog-grid">
-                    <div class="catalog-card">
-                        <h3>Recent Runs</h3>
-                        <p>[Latest running logs]</p>
-                        <div class="due-date">Logged: DEC 29 2024</div>
-                    </div>
-                    <div class="catalog-card">
-                        <h3>Training Goals</h3>
-                        <p>[Current training plan]</p>
-                    </div>
+                <div class="checkout-history">
+                    <table class="due-date">
+                        <tr>
+                            <th>Date</th>
+                            <th>Title</th>
+                        </tr>
+                        <tr>
+                            <td>MECH-115</td>
+                            <td>Mechatronics & Community College</td>
+                        </tr>
+                        <tr>
+                            <td>SWE-118</td>
+                            <td>Software Engineering Chronicles</td>
+                        </tr>
+                        <tr>
+                            <td>3DP-120</td>
+                            <td>The 3D Printing Adventure</td>
+                        </tr>
+                        <tr>
+                            <td>MAG-124</td>
+                            <td>Pursuit of Magical Objects</td>
+                        </tr>
+                    </table>
                 </div>
-            </div>
 
-            <div id="printing" class="tab-content">
-                <div class="catalog-grid">
-                    <div class="catalog-card">
-                        <h3>Active Prints</h3>
-                        <p>[Current printing projects]</p>
-                        <div class="due-date">Status: IN PROGRESS</div>
-                    </div>
-                    <div class="catalog-card">
-                        <h3>Print Archive</h3>
-                        <p>[Completed prints]</p>
-                    </div>
-                </div>
-            </div>
-
-            <div id="manifestos" class="tab-content">
-                <div class="catalog-grid">
-                    <div class="catalog-card">
-                        <h3>Recent Thoughts</h3>
-                        <p>[Latest philosophical musings]</p>
-                        <div class="due-date">Published: DEC 25 2024</div>
-                    </div>
-                    <div class="catalog-card">
-                        <h3>Core Principles</h3>
-                        <p>[Foundational ideas]</p>
-                    </div>
-                </div>
-            </div>
-
-            <div id="projects" class="tab-content">
-                <div class="catalog-grid">
-                    <div class="catalog-card">
-                        <h3>Current Projects</h3>
-                        <p>[Active projects and experiments]</p>
-                        <div class="due-date">Updated: DEC 29 2024</div>
-                    </div>
-                    <div class="catalog-card">
-                        <h3>Project Archive</h3>
-                        <p>[Completed projects]</p>
-                    </div>
-                </div>
+                <div class="signature">verda k.</div>
+                <div class="library-stamp">MESA VERDE LIBRARY<br>SPECIAL COLLECTIONS</div>
             </div>
         </div>
+
+        <div class="navigation-tabs">
+            <button class="nav-tab" data-section="home">HOME</button>
+            <button class="nav-tab" data-section="books">BOOKS</button>
+            <button class="nav-tab" data-section="running">RUNNING</button>
+            <button class="nav-tab" data-section="printing">3D PRINTING</button>
+            <button class="nav-tab" data-section="projects">PROJECTS</button>
+            <button class="nav-tab" data-section="manifestos">MANIFESTOS</button>
+        </div>
+
+        <!-- Books Section -->
+        <div id="books" class="library-section">
+            <div class="section-header">
+                <h2 class="embossed">Reading Room</h2>
+                <div class="dewey-decimal">Classification: 001.2 VK</div>
+            </div>
+            <div class="card-catalog">
+                <div class="catalog-drawer embossed">
+                    <div class="drawer-tab">Currently Reading</div>
+                    <div class="book">
+                        <div class="book-spine"></div>
+                        <strong>Title:</strong> The Craftsman's Soul
+                        <div class="circulation-status">Status: Page 142/300</div>
+                        <div class="page-corner"></div>
+                    </div>
+                    <div class="book">
+                        <div class="book-spine"></div>
+                        <strong>Title:</strong> Digital Fabrication Handbook
+                        <div class="circulation-status">Status: Just Started</div>
+                        <div class="page-corner"></div>
+                    </div>
+                </div>
+                <div class="catalog-drawer embossed">
+                    <div class="drawer-tab">Reading History</div>
+                    <div class="book">
+                        <div class="book-spine"></div>
+                        <strong>2024:</strong> Books that shaped my making journey
+                        <div class="circulation-status">12 entries cataloged</div>
+                        <div class="page-corner"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Projects Section -->
+        <div id="projects" class="library-section">
+            <div class="section-header">
+                <h2 class="embossed">Experimental Archives</h2>
+                <div class="dewey-decimal">Classification: 507.8 VK</div>
+            </div>
+            <div class="card-catalog">
+                <div class="catalog-drawer embossed">
+                    <div class="drawer-tab">Active Experiments</div>
+                    <div class="book">
+                        <div class="book-spine"></div>
+                        <strong>Project:</strong> Self-Replicating Robots
+                        <div class="circulation-status">Status: Phase 1 Testing</div>
+                        <div class="page-corner"></div>
+                    </div>
+                    <div class="book">
+                        <div class="book-spine"></div>
+                        <strong>Project:</strong> Smart Garden System
+                        <div class="circulation-status">Status: Prototype v3</div>
+                        <div class="page-corner"></div>
+                    </div>
+                    <div class="library-stamp">EXPERIMENTAL</div>
+                </div>
+                <div class="catalog-drawer embossed">
+                    <div class="drawer-tab">Lab Notes</div>
+                    <div class="book">
+                        <div class="book-spine"></div>
+                        <strong>Series:</strong> Failed Experiments Journal
+                        <div class="circulation-status">Latest Entry: DEC 27 2024</div>
+                        <div class="page-corner"></div>
+                    </div>
+                </div>
+                <div class="catalog-drawer embossed">
+                    <div class="drawer-tab">Future Investigations</div>
+                    <div class="book">
+                        <div class="book-spine"></div>
+                        <strong>Concept:</strong> AI-Powered Workshop Assistant
+                        <div class="circulation-status">Status: Planning Phase</div>
+                        <div class="page-corner"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Add remaining sections (Running, 3D Printing, Manifestos) with similar structure -->
 
         <footer>
-            <a href="contactform.html">request interlibrary loan →</a>
+            <div class="embossed">PLEASE RETURN BORROWED THOUGHTS BY DUE DATE</div>
+            <a href="contactform.html">interlibrary loan requests →</a>
         </footer>
     </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const tabs = document.querySelectorAll('.tab-button');
-            const contents = document.querySelectorAll('.tab-content');
+            const tabs = document.querySelectorAll('.nav-tab');
+            const sections = document.querySelectorAll('.library-section');
 
             tabs.forEach(tab => {
                 tab.addEventListener('click', () => {
-                    // Remove active class from all tabs and contents
-                    tabs.forEach(t => t.classList.remove('active'));
-                    contents.forEach(c => c.classList.remove('active'));
+                    const sectionId = tab.dataset.section;
 
-                    // Add active class to clicked tab and corresponding content
+                    // Remove active class from all tabs and sections
+                    tabs.forEach(t => t.classList.remove('active'));
+                    sections.forEach(s => s.classList.remove('active'));
+
+                    // Add active class to clicked tab and corresponding section
                     tab.classList.add('active');
-                    document.querySelector(tab.dataset.tab).classList.add('active');
+                    document.getElementById(sectionId).classList.add('active');
                 });
             });
 
-            // Activate first tab by default
+            // Activate home tab by default
             tabs[0].click();
         });
     </script>
