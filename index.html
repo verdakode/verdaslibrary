@@ -3,69 +3,295 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Verda Library - Books</title>
-    <link rel="stylesheet" href="styleone.css?v=5">
+    <title>mesa verde library</title>
+    <style>
+        :root {
+            --primary-color: #744700;
+            --background-color: #fefcd8;
+            --border-color: #000;
+            --shadow-color: #777777;
+            --hover-background: #ffffff;
+        }
+
+        body {
+            text-align: center;
+            font-size: 100%;
+            font-family: "Georgia", serif;
+            letter-spacing: 0.15em;
+            background-color: var(--background-color);
+            margin: 0;
+            padding: 0;
+        }
+
+        .wrapper {
+            background-color: #744700;
+            width: 70%;
+            min-width: 65%;
+            margin: 0 auto;
+            border: 0.3em solid #000;
+            box-shadow: -0.3em -0.3em #777777;
+            height: fit-content;
+        }
+
+        .library {
+            width: 80%;
+            height: auto;
+            display: block;
+            margin: 5% auto;
+            padding: 3%;
+            border: 0.5em solid var(--border-color);
+        }
+
+        .bio {
+            color: var(--background-color);
+            width: 80%;
+            margin: 2em auto;
+            font-size: 90%;
+            line-height: 1.6;
+        }
+
+        .bio a {
+            color: var(--background-color);
+            text-decoration: none;
+            border-bottom: 1px dotted;
+        }
+
+        /* Tab System */
+        .catalog-tabs {
+            width: 85%;
+            margin: 2em auto;
+            background: var(--background-color);
+            border: 0.2em solid var(--border-color);
+            padding: 0.5em 0.5em 2em 0.5em;
+        }
+
+        .tabs {
+            display: flex;
+            margin-bottom: -1px;
+            padding: 0;
+            list-style: none;
+            position: relative;
+            top: -1.5em;
+            gap: 0.3em;
+        }
+
+        .tab-button {
+            background: var(--background-color);
+            border: 0.15em solid var(--border-color);
+            padding: 0.8em 1.5em;
+            margin: 0;
+            cursor: pointer;
+            font-family: Georgia, serif;
+            letter-spacing: 0.1em;
+            font-size: 90%;
+            position: relative;
+            color: var(--primary-color);
+        }
+
+        .tab-button.active {
+            background: var(--hover-background);
+            border-bottom-color: var(--hover-background);
+            z-index: 2;
+        }
+
+        .tab-content {
+            display: none;
+            background: var(--hover-background);
+            padding: 2em;
+            border: 0.15em solid var(--border-color);
+            text-align: left;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .catalog-card {
+            background: var(--background-color);
+            border: 0.15em solid var(--border-color);
+            padding: 1.5em;
+            margin: 1em 0;
+        }
+
+        .catalog-card h3 {
+            color: var(--primary-color);
+            margin: 0 0 1em 0;
+            font-size: 110%;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 0.5em;
+        }
+
+        .catalog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5em;
+        }
+
+        .due-date {
+            font-family: 'Courier New', monospace;
+            font-size: 80%;
+            color: var(--primary-color);
+            margin-top: 1em;
+        }
+
+        footer {
+            background: var(--background-color);
+            padding: 1em;
+            margin-top: 2em;
+            border-top: 0.2em solid var(--border-color);
+        }
+
+        footer a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        @media (max-width: 767px) {
+            .wrapper {
+                width: 100%;
+                border: none;
+                box-shadow: none;
+            }
+
+            .catalog-tabs {
+                width: 95%;
+                padding: 0.5em;
+            }
+
+            .tabs {
+                flex-direction: column;
+                gap: 0.5em;
+            }
+
+            .tab-button {
+                width: 100%;
+                text-align: left;
+            }
+
+            .tab-button.active {
+                border-bottom-color: var(--border-color);
+            }
+
+            .catalog-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const tabs = document.querySelectorAll('.tab-button');
+            const contents = document.querySelectorAll('.tab-content');
+
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    // Remove active class from all tabs and contents
+                    tabs.forEach(t => t.classList.remove('active'));
+                    contents.forEach(c => c.classList.remove('active'));
+
+                    // Add active class to clicked tab and corresponding content
+                    tab.classList.add('active');
+                    document.querySelector(tab.dataset.tab).classList.add('active');
+                });
+            });
+
+            // Activate first tab by default
+            tabs[0].click();
+        });
+    </script>
 </head>
 <body>
     <div class="wrapper">
-        <header>
-            <figure>
-                <img class="library" src="librarypic.jpeg" alt="Interior view of Verda Library">
-                <figcaption>Welcome to Verda Library</figcaption>
-                <h1>WIP. This is the first website I ever made in its original state! It is really old and I barely know how to write plain css anymore lmao but I have big plans for it after I am done with my current project.</h1>
-            </figure>
-        </header>
+        <img class="library" src="librarypic.jpeg" alt="Library space">
 
-        <nav>
-            <ul class="one">
-                <li><a href="#" class="on">Home</a></li>
-                <li><a href="Nonfiction.html">NonFiction</a></li>
-                <li><a href="#">Mystery</a></li>
-                <li><a href="#">Fantasy</a></li>
-                <li><a href="#">Romance</a></li>
+        <div class="bio">
+            verda (from mesa verde), crafting magical objects and pursuing wonder.
+            field notes on <a href="https://twitter.com/yourusername">x</a> |
+            experiments on <a href="https://instagram.com/yourusername">ig</a>
+        </div>
+
+        <div class="catalog-tabs">
+            <ul class="tabs">
+                <li class="tab-button" data-tab="#books">Books</li>
+                <li class="tab-button" data-tab="#running">Running</li>
+                <li class="tab-button" data-tab="#printing">3D Printing</li>
+                <li class="tab-button" data-tab="#manifestos">Manifestos</li>
+                <li class="tab-button" data-tab="#projects">Projects</li>
             </ul>
-        </nav>
 
-        <main class="content">
-            <article class="leftcolumn">
-                <h2>Listen with us</h2>
-                <iframe
-                    src="https://open.spotify.com/embed/track/1l8wtuVI5gQ90NXEeUFAjX?utm_source=generator&theme=0"
-                    frameborder="0"
-                    allowfullscreen
-                    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-                    loading="lazy"
-                    title="Spotify player"
-                >
-                </iframe>
-            </article>
-
-            <aside class="rightcolumn">
-                <h2>Top October Books</h2>
-                <div class="two">
-                    <details>
-                        <summary>Age of Innocence</summary>
-                        <p>By: Edith Wharton</p>
-                    </details>
-                    <details>
-                        <summary>The Bell Jar</summary>
-                        <p>By: Sylvia Plath</p>
-                    </details>
-                    <details>
-                        <summary>The Silent Patient</summary>
-                        <p>By: Alex Michaelides</p>
-                    </details>
-                    <details>
-                        <summary>War and Peace</summary>
-                        <p>By: Leo Tolstoy</p>
-                    </details>
+            <div id="books" class="tab-content">
+                <div class="catalog-grid">
+                    <div class="catalog-card">
+                        <h3>Currently Reading</h3>
+                        <p>[Current book title and thoughts]</p>
+                        <div class="due-date">Due: JAN 15 2025</div>
+                    </div>
+                    <div class="catalog-card">
+                        <h3>Recent Returns</h3>
+                        <p>[Recently finished books]</p>
+                        <div class="due-date">Returned: DEC 20 2024</div>
+                    </div>
                 </div>
-            </aside>
-        </main>
+            </div>
+
+            <div id="running" class="tab-content">
+                <div class="catalog-grid">
+                    <div class="catalog-card">
+                        <h3>Recent Runs</h3>
+                        <p>[Latest running logs]</p>
+                        <div class="due-date">Logged: DEC 29 2024</div>
+                    </div>
+                    <div class="catalog-card">
+                        <h3>Training Goals</h3>
+                        <p>[Current training plan]</p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="printing" class="tab-content">
+                <div class="catalog-grid">
+                    <div class="catalog-card">
+                        <h3>Active Prints</h3>
+                        <p>[Current printing projects]</p>
+                        <div class="due-date">Status: IN PROGRESS</div>
+                    </div>
+                    <div class="catalog-card">
+                        <h3>Print Archive</h3>
+                        <p>[Completed prints]</p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="manifestos" class="tab-content">
+                <div class="catalog-grid">
+                    <div class="catalog-card">
+                        <h3>Recent Thoughts</h3>
+                        <p>[Latest philosophical musings]</p>
+                        <div class="due-date">Published: DEC 25 2024</div>
+                    </div>
+                    <div class="catalog-card">
+                        <h3>Core Principles</h3>
+                        <p>[Foundational ideas]</p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="projects" class="tab-content">
+                <div class="catalog-grid">
+                    <div class="catalog-card">
+                        <h3>Current Projects</h3>
+                        <p>[Active projects and experiments]</p>
+                        <div class="due-date">Updated: DEC 29 2024</div>
+                    </div>
+                    <div class="catalog-card">
+                        <h3>Project Archive</h3>
+                        <p>[Completed projects]</p>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <footer>
-            <a href="contactform.html">Contact</a>
-            <h3>Verda Korzeniewski</h3>
+            <a href="contactform.html">request interlibrary loan →</a>
         </footer>
     </div>
 </body>
