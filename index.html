@@ -1,854 +1,281 @@
+<!-- FULL PAGE WITH FULL DESCRIPTIONS -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>verda's library</title>
-<style>
-        :root {
-            --primary-color: #744700;
-            --background-color: #fefcd8;
-            --border-color: #000;
-            --shadow-color: #777777;
-            --hover-background: #ffffff;
-            --stamp-color: #691818;
-            --shelf-color: #8B4513;
-            --paper-texture: repeating-linear-gradient(
-                var(--background-color) 0px,
-                var(--background-color) 24px,
-                rgba(0,0,0,0.05) 25px
-            );
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Verda Library</title>
+  <style>
+    :root {
+      --primary-color: #744700;
+      --accent-color: #ff1493;
+      --text-color: #333;
+      --background-color: #fefcd8;
+      --card-bg: #ffffff;
+      --card-border: #ddd;
+    }
 
-        @font-face {
-            font-family: 'LibraryTypewriter';
-            src: local('Courier New');
-        }
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.3;
+      margin: 0 auto;
+      padding: 10px;
+      max-width: 900px;
+      color: var(--text-color);
+      background-color: var(--background-color);
+      font-size: 14px;
+    }
 
-        body {
-            text-align: center;
-            font-size: 100%;
-            font-family: "Georgia", serif;
-            letter-spacing: 0.15em;
-            background-color: var(--background-color);
-            background-image: var(--paper-texture);
-            margin: 0;
-            padding: 2em 0;
-        }
+    .hero-banner {
+      background-color: var(--primary-color);
+      color: white;
+      padding: 15px;
+      text-align: center;
+      border-radius: 4px;
+      box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
+      margin-bottom: 20px;
+    }
 
-        .wrapper {
-            background-color: #744700;
-            width: 70%;
-            min-width: 65%;
-            margin: 0 auto;
-            border: 0.3em solid #000;
-            box-shadow: -0.3em -0.3em #777777;
-            height: fit-content;
-            padding-bottom: 2em;
-            position: relative;
-        }
+    .hero-banner h1 {
+      font-size: 1.8em;
+      margin: 0 0 10px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
 
-        .library {
-            width: 45%;
-            height: auto;
-            display: block;
-            margin: 5% auto;
-            padding: 3%;
-            border: 0.5em solid var(--border-color);
-            box-shadow: 0 0 10px rgba(0,0,0,0.2);
-            background: white;
-            transition: transform 0.3s ease;
-        }
+    .main-nav {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
 
-        .library:hover {
-            transform: scale(1.02);
-        }
+    .main-nav a {
+      color: white;
+      background-color: var(--primary-color);
+      margin: 3px;
+      padding: 5px 10px;
+      text-decoration: none;
+      font-size: 0.8em;
+      border-radius: 3px;
+    }
 
-        .library-card {
-            background: var(--background-color);
-            background-image: var(--paper-texture);
-            border: 2px solid var(--border-color);
-            padding: 2em;
-            margin: 2em auto;
-            width: 85%;
-            position: relative;
-            font-family: 'LibraryTypewriter', monospace;
-            box-shadow: 0 3px 6px rgba(0,0,0,0.16);
-        }
+    .main-nav a:hover {
+      background-color: var(--accent-color);
+    }
 
-        .embossed {
-            color: var(--primary-color);
-            text-shadow:
-                -1px -1px 1px rgba(255,255,255,0.7),
-                1px 1px 1px rgba(0,0,0,0.3);
-            border: 1px solid rgba(0,0,0,0.15);
-            border-radius: 2px;
-            padding: 0.5em 1em;
-            position: relative;
-            background: rgba(255,255,255,0.1);
-        }
+    .section-header {
+      text-align: center;
+      font-size: 1.2em;
+      margin: 20px 0 10px;
+      color: var(--primary-color);
+      text-transform: uppercase;
+      position: relative;
+    }
 
-        .date-stamp {
-            position: absolute;
-            top: 1em;
-            right: 1em;
-            color: var(--stamp-color);
-            font-family: 'LibraryTypewriter', monospace;
-            transform: rotate(-5deg);
-            border: 2px solid var(--stamp-color);
-            padding: 0.5em;
-            font-size: 80%;
-            background: rgba(255,255,255,0.9);
-            box-shadow: 2px 2px 4px rgba(0,0,0,0.1);
-        }
+    .section-header::after {
+      content: '';
+      display: block;
+      width: 50px;
+      height: 2px;
+      background: var(--accent-color);
+      margin: 5px auto;
+    }
 
-        .card-header {
-            border-bottom: 2px double var(--border-color);
-            margin-bottom: 1em;
-            padding-bottom: 1em;
-            text-align: left;
-        }
+    .carousel-wrapper {
+      background-color: #f9f9f9;
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      margin-bottom: 30px;
+      overflow: hidden;
+    }
 
-        .catalog-number {
-            font-size: 80%;
-            color: var(--primary-color);
-            margin-bottom: 0.5em;
-            letter-spacing: 0.2em;
-        }
+    .carousel-container {
+      position: relative;
+      overflow: hidden;
+    }
 
-        .section-label {
-            background: var(--primary-color);
-            color: var(--background-color);
-            padding: 0.5em 1em;
-            display: inline-block;
-            margin: 0.5em 0;
-            box-shadow: 2px 2px 4px rgba(0,0,0,0.2);
-            transform: rotate(-1deg);
-        }
+    .carousel-slide {
+      display: none;
+      text-align: center;
+    }
 
-        .card-content {
-            text-align: left;
-            line-height: 1.6;
-            padding: 1em;
-            background: rgba(255,255,255,0.4);
-            border: 1px solid rgba(0,0,0,0.1);
-            margin: 1em 0;
-        }
+    .carousel-slide img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
 
-        .name-hover {
-            position: relative;
-            display: inline-block;
-            cursor: help;
-            border-bottom: 1px dotted var(--primary-color);
-            color: var(--primary-color);
-            font-weight: bold;
-        }
+    .carousel-prev,
+    .carousel-next {
+      cursor: pointer;
+      position: absolute;
+      top: 50%;
+      padding: 16px;
+      color: white;
+      font-weight: bold;
+      font-size: 18px;
+      background-color: rgba(0, 0, 0, 0.3);
+      transform: translateY(-50%);
+    }
 
-        .name-hover .tooltip {
-            visibility: hidden;
-            width: 300px;
-            background-color: var(--background-color);
-            color: var(--primary-color);
-            text-align: left;
-            padding: 1em;
-            border: 1px solid var(--border-color);
-            box-shadow: 3px 3px 10px rgba(0,0,0,0.2);
-            position: absolute;
-            z-index: 1;
-            bottom: 125%;
-            left: 50%;
-            margin-left: -150px;
-            opacity: 0;
-            transition: opacity 0.3s, transform 0.3s;
-            transform: translateY(10px);
-        }
+    .carousel-next {
+      right: 0;
+    }
 
-        .name-hover:hover .tooltip {
-            visibility: visible;
-            opacity: 1;
-            transform: translateY(0);
-        }
+    .carousel-prev:hover,
+    .carousel-next:hover {
+      background-color: rgba(0, 0, 0, 0.8);
+    }
 
-        .signature {
-            font-family: 'Brush Script MT', cursive;
-            color: var(--stamp-color);
-            font-size: 1.2em;
-            transform: rotate(8deg);
-            position: absolute;
-            bottom: 45em;
-            right: -2em;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
-            opacity: 0.9;
-        }
+    .carousel-description {
+      padding: 15px;
+      background-color: var(--card-bg);
+      border-top: 3px solid var(--accent-color);
+    }
 
-        .library-stamp {
-            position: absolute;
-            bottom: 68em;
-            color: var(--stamp-color);
-            font-family: 'LibraryTypewriter', monospace;
-            font-size: 0.8em;
-            border: 2px solid var(--stamp-color);
-            padding: 1em;
-            transform: rotate(-9deg);
-            opacity: 0.8;
-            background: rgba(255,255,255,0.9);
-            box-shadow: 2px 2px 4px rgba(0,0,0,0.1);
-        }
+    footer {
+      text-align: center;
+      font-size: 0.75em;
+      margin-top: 20px;
+      padding-top: 10px;
+      border-top: 1px solid var(--card-border);
+    }
 
-        .navigation-tabs {
-            display: flex;
-            gap: 0.5em;
-            margin: 2em auto;
-            width: 85%;
-            justify-content: center;
-            flex-wrap: wrap;
-            position: relative;
-            z-index: 2;
-        }
-
-        .nav-tab {
-            background: var(--background-color);
-            border: 2px solid var(--border-color);
-            padding: 0.8em 1.5em;
-            cursor: pointer;
-            font-family: 'LibraryTypewriter', monospace;
-            transition: all 0.3s;
-            position: relative;
-            overflow: hidden;
-            font-size: 0.9em;
-            letter-spacing: 0.1em;
-            box-shadow: -2px -2px 5px rgba(255,255,255,0.5),
-                       2px 2px 5px rgba(0,0,0,0.1);
-        }
-
-        .nav-tab::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(
-                120deg,
-                transparent,
-                rgba(255,255,255,0.3),
-                transparent
-            );
-            transition: 0.5s;
-        }
-
-        .nav-tab:hover::before {
-            left: 100%;
-        }
-
-        .nav-tab.active {
-            background: var(--primary-color);
-            color: var(--background-color);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-        }
-
-        .library-section {
-            display: none;
-            background: var(--background-color);
-            margin: 2em auto;
-            width: 85%;
-            border: 2px solid var(--border-color);
-            padding: 2em;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            position: relative;
-        }
-
-        .library-section.active {
-            display: block;
-            animation: fadeIn 0.5s ease-in;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .section-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 2px double var(--border-color);
-            padding-bottom: 1em;
-            margin-bottom: 2em;
-        }
-
-        .dewey-decimal {
-            font-family: 'LibraryTypewriter', monospace;
-            color: var(--stamp-color);
-            font-size: 0.8em;
-            padding: 0.5em;
-            border: 1px solid var(--stamp-color);
-            background: rgba(255,255,255,0.9);
-        }
-
-        .card-catalog {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2em;
-            margin: 2em 0;
-        }
-
-        .catalog-drawer {
-            background: var(--hover-background);
-            border: 2px solid var(--border-color);
-            padding: 2em 1.5em;
-            position: relative;
-            box-shadow: -3px -3px 7px rgba(255,255,255,0.5),
-                       3px 3px 7px rgba(0,0,0,0.1);
-        }
-
-        .drawer-tab {
-            position: absolute;
-            top: -1.5em;
-            left: 1em;
-            background: var(--hover-background);
-            padding: 0.3em 1em;
-            border: 2px solid var(--border-color);
-            border-bottom: none;
-            font-family: 'LibraryTypewriter', monospace;
-            font-size: 0.8em;
-            box-shadow: -2px -2px 4px rgba(255,255,255,0.5);
-        }
-
-        .book {
-            background: var(--background-color);
-            border: 1px solid var(--border-color);
-            padding: 1.2em;
-            margin: 1em 0;
-            text-align: left;
-            font-family: 'LibraryTypewriter', monospace;
-            font-size: 0.9em;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .book:hover {
-            transform: translateY(-5px) rotate(1deg);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            background: var(--hover-background);
-        }
-
-        .book::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            right: 0;
-            width: 20px;
-            height: 20px;
-            background: linear-gradient(135deg, transparent 50%, rgba(0,0,0,0.1) 50%);
-        }
-
-        .circulation-status {
-            color: var(--stamp-color);
-            font-size: 0.8em;
-            margin-top: 1em;
-            padding-top: 0.5em;
-            border-top: 1px dotted var(--border-color);
-        }
-
-        .due-date {
-            width: 100%;
-            margin: 1em 0;
-            border-collapse: collapse;
-            font-family: 'LibraryTypewriter', monospace;
-            font-size: 0.9em;
-            background: rgba(255,255,255,0.7);
-        }
-
-        .due-date th, .due-date td {
-            border: 1px solid var(--border-color);
-            padding: 0.8em;
-            text-align: left;
-        }
-
-        .due-date th {
-            background: var(--primary-color);
-            color: var(--background-color);
-        }
-
-        .due-date tr:nth-child(even) {
-            background: rgba(255,255,255,0.5);
-        }
-
-        footer {
-            background: var(--background-color);
-            padding: 1.5em;
-            margin-top: 2em;
-            font-family: 'LibraryTypewriter', monospace;
-            border-top: 2px solid var(--border-color);
-            text-align: center;
-            position: relative;
-            background-image: var(--paper-texture);
-        }
-
-        footer::before {
-            content: '';
-            position: absolute;
-            top: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 100px;
-            height: 20px;
-            background: var(--background-color);
-            border: 2px solid var(--border-color);
-            border-bottom: none;
-            border-radius: 10px 10px 0 0;
-        }
-
-        footer a {
-            color: var(--primary-color);
-            text-decoration: none;
-            display: inline-block;
-            margin-top: 1em;
-            padding: 0.5em 1em;
-            border: 1px solid var(--primary-color);
-            transition: all 0.3s ease;
-        }
-
-        footer a:hover {
-            background: var(--primary-color);
-            color: var(--background-color);
-            transform: translateY(-2px);
-            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-        }
-
-        @media (max-width: 767px) {
-            .wrapper {
-                width: 95%;
-                border-width: 0.2em;
-                box-shadow: none;
-            }
-
-            .library-section {
-                width: 90%;
-                padding: 1em;
-            }
-
-            .navigation-tabs {
-              flex-direction: column;
-              width: 90%;
-            }
-
-            .card-catalog {
-              grid-template-columns: 1fr;
-            }
-
-            .library {
-              width: 90%;
-              padding: 2%;
-            }
-
-            .library-card {
-              width: 90%;
-              padding: 1em;
-            }
-
-
-            .library-stamp {
-              font-size: 0.7em;
-              bottom: 2em;
-              left: 1em;
-              padding: 0.8em;
-            }
-
-            .nav-tab {
-                width: 100%;
-                margin: 0.2em 0;
-            }
-
-            .catalog-drawer {
-                margin-top: 2em;
-            }
-
-            .card-content {
-                padding: 0.8em;
-            }
-
-            .name-hover .tooltip {
-                width: 80%;
-                left: 10%;
-                margin-left: 0;
-            }
-        }
-
-        /* Animation keyframes */
-        @keyframes stampIn {
-            from {
-                opacity: 0;
-                transform: rotate(-25deg) scale(1.5);
-            }
-            to {
-                opacity: 0.8;
-                transform: rotate(-15deg) scale(1);
-            }
-        }
-
-        @keyframes pageFlip {
-            0% {
-                transform: rotateY(0deg);
-            }
-            100% {
-                transform: rotateY(180deg);
-            }
-        }
-
-        /* Additional effects */
-        .book-spine {
-            position: absolute;
-            left: -10px;
-            top: 0;
-            bottom: 0;
-            width: 10px;
-            background: var(--primary-color);
-            transform: skewY(-45deg);
-            transform-origin: top;
-        }
-
-        .page-corner {
-            position: absolute;
-            right: 0;
-            bottom: 0;
-            width: 0;
-            height: 0;
-            border-style: solid;
-            border-width: 0 0 20px 20px;
-            border-color: transparent transparent rgba(0,0,0,0.1) transparent;
-        }
-    </style>
+    @media (max-width: 768px) {
+      .main-nav {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+</style>
 </head>
 <body>
-    <div class="wrapper">
-        <!-- Home Section -->
-        <div id="home" class="library-section active">
-            <a href="https://quantumlibris.com">
-                <img class="library" src="librarypic.jpeg" alt="Library space">
-            </a>
+  <div class="hero-banner">
+    <h1>Verda's Time Machine</h1>
+    <p>Science Olympiad 2022 Project</p>
+  </div>
 
-            <div class="library-card embossed">
-                <div class="date-stamp">DEC 29 2024</div>
-                <div class="card-header">
-                    <div class="catalog-number">CALL NO: MV.2024.01</div>
-                    <h2>BORROWER RECORD</h2>
-                    <div class="section-label">SPECIAL COLLECTIONS</div>
-                </div>
+  <nav class="main-nav">
+    <a href="#gravity">Gravity Escapement</a>
+    <a href="#screenshots">Time Machine</a>
+    <a href="#antenna">Antenna</a>
+    <a href="#making">Engineering Club</a>
+  </nav>
 
-                <div class="card-content">
-                    <span class="name-hover">verda
-                        <span class="tooltip">Named after my great great grandmother from Mesa Verde</span>
-                    </span>
-                    <span class="name-hover">korzeniewski:
-                        <span class="tooltip">Polish surname from Korzeniew, a small town in Poland</span>
-                    </span>
-                    a technologist who lives in san francisco/palo alto. welcome to my impersonal library
-
-                    <div class="socials">
-                        field notes: <a href="https://x.com/verdakorz">x</a> |
-                        old experiments: <a href="https://instagram.com/verdakorzeniewski">ig</a>
-                    </div>
-                </div>
-
-                <div class="checkout-history">
-                    <table class="due-date">
-                        <tr>
-                            <th>Edition</th>
-                            <th>Title</th>
-                        </tr>
-                        <tr>
-                            <td>MECH-115</td>
-                            <td>Mechatronics</td>
-                        </tr>
-                        <tr>
-                            <td>SWE-118</td>
-                            <td>Web Apps</td>
-                        </tr>
-                        <tr>
-                            <td>3DP-120</td>
-                            <td>3D Printing</td>
-                        </tr>
-                        <tr>
-                            <td>MAG-124</td>
-                            <td>Robotics</td>
-                        </tr>
-                        <tr></tr>
-                            <td>3DP-120</td>
-                            <td>Side Quests</td>
-                        </tr>
-                    </table>
-                </div>
-
-                <div class="library-stamp">VERDA LIBRARY<br>SPECIAL COLLECTIONS</div>
-            </div>
-        </div>
-
-        <div class="navigation-tabs">
-            <button class="nav-tab" data-section="home">HOME</button>
-            <button class="nav-tab" data-section="books">BOOKS</button>
-            <button class="nav-tab" data-section="running">RUNNING</button>
-            <button class="nav-tab" data-section="printing">3D PRINTING</button>
-            <button class="nav-tab" data-section="projects">PROJECTS</button>
-            <button class="nav-tab" data-section="manifestos">MY STORY</button>
-        </div>
-
-        <!-- Books Section -->
-        <div id="books" class="library-section">
-            <div class="section-header">
-                <h2 class="embossed">Reading Room</h2>
-                <div class="dewey-decimal">Classification: 001.2 VK</div>
-            </div>
-            <div class="card-catalog">
-                <div class="catalog-drawer embossed">
-                    <div class="drawer-tab">Currently Reading</div>
-                    <div class="book">
-                        <div class="book-spine"></div>
-                        <strong>Title:</strong> The Third Wave
-                        <div class="circulation-status">Status: This Book Is Awful</div>
-                        <div class="page-corner"></div>
-                    </div>
-                    <div class="book">
-                        <div class="book-spine"></div>
-                        <strong>Title:</strong> Unqualified Reservation
-                        <div class="circulation-status">Status: Just Started</div>
-                        <div class="page-corner"></div>
-                    </div>
-                </div>
-                <div class="catalog-drawer embossed">
-                    <div class="drawer-tab">Reading History</div>
-                    <div class="book">
-                        <div class="book-spine"></div>
-                        <strong>Best Reads:</strong> v good books
-                        <div class="circulation-status">12 entries cataloged</div>
-                        <div class="page-corner"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Projects Section -->
-        <div id="projects" class="library-section">
-            <div class="section-header">
-                <h2 class="embossed">Experimental Archives</h2>
-                <div class="dewey-decimal">Classification: 507.8 VK</div>
-            </div>
-            <div class="card-catalog">
-                <div class="catalog-drawer embossed">
-                    <div class="drawer-tab">Active Experiments</div>
-                    <div class="book">
-                        <div class="book-spine"></div>
-                        <strong>Project:</strong> 3D printing platform
-                        <div class="circulation-status">Status: Phase 1 Testing</div>
-                        <div class="page-corner"></div>
-                    </div>
-                    <div class="book">
-                        <div class="book-spine"></div>
-                        <a href="https://zerothbot.com"></a>
-                        <strong>Project:</strong> zeroth robot
-                        <div class="circulation-status">Status: Phase 1 Testing</div>
-                        <div class="page-corner"></div>
-                    </div>
-                    <div class="book">
-                        <div class="book-spine"></div>
-                        <strong>Project:</strong> quantum libris
-                        <div class="circulation-status">Status: Prototype v3</div>
-                        <div class="page-corner"></div>
-                    </div>
-                    <div class="library-stamp">EXPERIMENTAL</div>
-                </div>
-                <div class="catalog-drawer embossed">
-                    <div class="drawer-tab">Lab Notes</div>
-                    <div class="book">
-                        <div class="book-spine"></div>
-                        <strong>Series:</strong> Failed Experiments Journal
-                        <div class="circulation-status">Latest Entry: DEC 27 2024</div>
-                        <div class="page-corner"></div>
-                    </div>
-                </div>
-                <div class="catalog-drawer embossed">
-                    <div class="drawer-tab">Future Investigations</div>
-                    <div class="book">
-                        <div class="book-spine"></div>
-                        <strong>Concept:</strong> Some kind of live website editor
-                        <div class="circulation-status">Status: tbd</div>
-                        <div class="page-corner"></div>
-                    </div>
-                    <div class="book">
-                        <div class="book-spine"></div>
-                        <strong>Concept:</strong> A bio inspired robot
-                        <div class="circulation-status">Status: shelved</div>
-                        <div class="page-corner"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Running Section -->
-        <div id="running" class="library-section">
-            <div class="section-header">
-                <h2 class="embossed">Running Archives</h2>
-                <div class="dewey-decimal">Classification: 796.42 VK</div>
-            </div>
-            <div class="card-catalog">
-                <div class="catalog-drawer embossed">
-                    <div class="drawer-tab">Training Log</div>
-                    <div class="book">
-                        <div class="book-spine"></div>
-                        <strong>Activity:</strong> Weekly Runs in Grand Rapids
-                        <div class="circulation-status">Status: Completed</div>
-                        <div class="page-corner"></div>
-                    </div>
-                    <div class="book">
-                        <div class="book-spine"></div>
-                        <strong>Activity:</strong> San Francisco Bay Trail
-                        <div class="circulation-status">Status: In Progress</div>
-                        <div class="page-corner"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- 3D Printing Section -->
-        <div id="printing" class="library-section">
-            <div class="section-header">
-                <h2 class="embossed">3D Printing Workshop</h2>
-                <div class="dewey-decimal">Classification: 621.988 VK</div>
-            </div>
-            <div class="card-catalog">
-                <div class="catalog-drawer embossed">
-                    <div class="drawer-tab">Printing History</div>
-                    <div class="book">
-                        <div class="book-spine"></div>
-                        <strong>First Printer:</strong> Monoprice Mini Delta (6th Grade)
-                        <div class="circulation-status">Status: Archive</div>
-                        <div class="page-corner"></div>
-                    </div>
-                    <div class="book">
-                        <div class="book-spine"></div>
-                        <strong>Project:</strong> Pokemon Designs (TinkerCAD)
-                        <div class="circulation-status">Status: Archive</div>
-                        <div class="page-corner"></div>
-                    </div>
-                    <div class="book">
-                        <div class="book-spine"></div>
-                        <strong>Skill:</strong> SolidWorks (Mechatronics)
-                        <div class="circulation-status">Status: Acquired</div>
-                        <div class="page-corner"></div>
-                    </div>
-                    <div class="book">
-                        <div class="book-spine"></div>
-                        <strong>Project:</strong> Building a 3D Printer from Scratch
-                        <div class="circulation-status">Status: Completed</div>
-                        <div class="page-corner"></div>
-                    </div>
-                    <div class="book">
-                        <div class="book-spine"></div>
-                        <strong>Venture:</strong> <a href="https://makermesh.org">The Maker Mesh</a>
-                        <div class="circulation-status">Status: 30 Users / Founders Inc</div>
-                        <div class="page-corner"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Manifestos Section -->
-        <div id="manifestos" class="library-section">
-            <div class="section-header">
-                <h2 class="embossed">Life Chronicles & Philosophies</h2>
-                <div class="dewey-decimal">Classification: 921.3 VK</div>
-            </div>
-            <div class="card-content" style="line-height: 1.8; text-align: justify; padding: 2em; margin-bottom: 2em;">
-              <h3 class="section-label">The Path Less Traveled</h3>
-
-              <p>I started off homeschooled, then bounced between different schools - a couple of public schools, a Catholic school, and finally another public school. Through this patchwork education, I discovered a fundamental truth: <strong>the only real education is what you teach yourself</strong>. All genuine learning is empirical, bound by your ability to observe, extrapolate, and distill knowledge. Institutions might provide structure, but enlightenment happens in isolation.</p>
-
-              <p>Living this philosophy, I finished my high school credits early to study <strong>Mechatronics</strong> at a community college, while simultaneously securing my first position at a <strong>software consultancy</strong>. There, I worked on two projects that validated my approach to learning:</p>
-              <ul style="text-align: left; margin-left: 2em;">
-                <li>A Hello Fresh-like platform integrated with insurance systems - a complex intersection I navigated through self-directed exploration</li>
-                <li>An Enterprise Resource Planning (ERP) system for hardware stores, where I owned various inventory management features by teaching myself the intricacies that formal education never covered</li>
-              </ul>
-
-              <div class="date-stamp">THE EMPIRICAL EDUCATION</div>
-            </div>
-
-            <div class="card-content" style="line-height: 1.8; text-align: justify; padding: 2em; margin-bottom: 2em;">
-              <h3 class="section-label" style="margin-top: 2em;">The College Question</h3>
-
-              <p>I began the MIT application process, meticulously completing half before confronting a profound realization: what I truly valued was the <em>freedom to pursue my interests and forge my own path</em>. This epiphany led me to abandon traditional education in favor of practical experience.</p>
-
-              <p>Instead of college, I committed full-time to the software consultancy, diving deep into <strong>Ruby on Rails</strong> and <strong>Vue.js</strong> development. This decision embodied my belief that hands-on learning and real-world problem-solving could be more valuable than formal education—at least for my particular journey.</p>
-
-              <div class="date-stamp" style="top: auto; bottom: 1em;">DECISION POINT</div>
-
-              <h3 class="section-label" style="margin-top: 2em;">The 3D Printing Odyssey</h3>
-
-              <p>My fascination with <strong>3D printing</strong> began in 6th grade when I received my first Monoprice Mini Delta printer. i learned <strong>TinkerCAD</strong>, designing Pokemon and other objects, eventually leading to <strong>SolidWorks</strong> proficiency during my Mechatronics studies.</p>
-
-              <p>After a year at the consultancy, I found an opportunity through a friend from my coworking space <a href="https://www.workthefactory.com/" style="display: inline; padding: 0; text-transform: none;">The Factory</a> to join a <strong>3D printing startup</strong>, aligning perfectly with my longstanding passion. In Grand Rapids, I immersed myself in the running, 3D printing, and programming communities, expanding both my technical skills and social connections.</p>
-
-              <div class="date-stamp" style="transform: rotate(5deg);">MOVING ACROSS COUNTRY</div>
-
-                <h3 class="section-label" style="margin-top: 2em;">The San Francisco Chapter</h3>
-
-                <p>I grew quite discontent with my michigandian comfort and relative success. Driven by ambition—specifically to earn $100,000 before turning 20—and seeking the innovation hub where my 3D printing company was headquartered, I relocated to <strong>San Francisco</strong>.</p>
-
-                <p>My west coast experience brought intense focus on 3D printer development, see https://genfab.co and https://genfab.co/i-400-release </p>
-
-                <div class="date-stamp" style="right: 3em;">NEW HORIZONS</div>
-
-                <h3 class="section-label" style="margin-top: 2em;">Entrepreneurial Ventures</h3>
-
-                <p>After leaving, I decided to work on <a href="https://makermesh.org" style="display: inline; padding: 0; text-transform: none;">The Maker Mesh</a>, an online 3D printing service. The venture gained approximately 30 users during my month hanging out with friends at founders inc</p>
-
-                <p>Yet the solitary nature of solo entrepreneurship proved challenging. This isolation led to a profound realization, catalyzed by an enlightening psychedelic experience: <em>truly impactful endeavors result from collaborative human effort.</em></p>
-
-                <div class="date-stamp" style="transform: rotate(-8deg);">ENTREPRENEURSHIP</div>
-
-                <h3 class="section-label" style="margin-top: 2em;">Present Path & Future Vision</h3>
-
-                <p>A serendipitous call from my friend JX from Noisebridge—who worked at the humanoid robot company KScale Labs—arrived the day after my epiphany about robotics' future role in infrastructure. This cosmic timing felt significant, and I joined KScale Labs as a contractor, immersing myself in a community of inventors dedicated to robotics advancement.</p>
-
-                <p>While I've somewhat recalibrated my vision for the 3D printing service due to limited market demand, my passion for small robots and mechanical innovation continues unabated, guiding my current projects and future aspirations.</p>
-
-                <div class="signature" style="position: relative; bottom: 0; right: 0; margin-top: 3em; text-align: right;">
-                    Verda Korzeniewski
-                </div>
-            </div>
-        </div>
-
-        <footer>
-            <div class="embossed">PLEASE RETURN BORROWED THOUGHTS BY DUE DATE</div>
-            <a href="contactform.html">interlibrary loan requests →</a>
-        </footer>
+  <div id="gravity" class="section-header">Gravity Escapement</div>
+  <div class="carousel-wrapper">
+    <div class="carousel-container">
+      <div class="carousel-slide">
+        <img src="Images/gravityescapement.png" alt="Gravity Escapement">
+      </div>
     </div>
+    <div class="carousel-description">
+      <p>For my science project, I designed a gravity-powered escapement mechanism that uses the principles of mechanical timekeeping. I wound a string around the center of a gear mechanism and attached counterweights of various weights to test different timing intervals.</p>
+      <p>By carefully calibrating the counterweights, I was able to control how quickly the escapement mechanism would unwind. The heavier weights created more torque, causing faster unwinding, while lighter weights resulted in a slower, more controlled release of energy.</p>
+      <p>The escapement mechanism was designed with a small flag at the end of its cycle path. When the weighted string fully unwound, it would trigger the flag to raise, signaling the completion of the timing cycle. This visual indicator allowed for precise measurement of elapsed time without requiring any electronic components.</p>
+      <p>This experiment demonstrated how gravity can be harnessed as a consistent force for measuring time intervals, similar to principles used in traditional pendulum clocks but with a different mechanical approach.</p>
+    </div>
+  </div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const tabs = document.querySelectorAll('.nav-tab');
-            const sections = document.querySelectorAll('.library-section');
+  <div id="screenshots" class="section-header">Time Machine</div>
+  <div class="carousel-wrapper">
+    <div class="carousel-container">
+      <div class="carousel-slide">
+        <img src="Images/slide1.png" alt="Slide 1">
+      </div>
+      <div class="carousel-slide">
+        <img src="Images/meandviccy.png" alt="Me and Viccy">
+      </div>
+      <div class="carousel-slide">
+        <img src="Images/slide2.png" alt="Slide 2">
+      </div>
+      <div class="carousel-slide">
+        <img src="Images/slide3.png" alt="Slide 3">
+      </div>
+      <div class="carousel-slide">
+        <img src="Images/meandmentor.png" alt="Me and Mentor">
+      </div>
+      <a class="carousel-prev">&#10094;</a>
+      <a class="carousel-next">&#10095;</a>
+    </div>
+    <div class="carousel-description">
+      <p>This is a time measurement project I created when I was 16 years old for Science Olympiad 2022. I repurposed a mechanism from an old victrola record player and developed a mechanical time measurement system. During testing, I used an electric hand drill with a custom gear that matched the motor teeth for faster setup, but during the competition I used the traditional hand crank.</p>
+      <p>The project is about time, music, and space. since music exists as patterns organized in time— a victrola motor is the perfect device to be repurposed as a timer. perhaps less enjoyable, but the record player was broken and scrapped for parts okay I gave it a second life! as opposed to visual arts which can only exist in space, music unfolds exclusively through time, so temporal organization is fundamental. the same governor mechanism that once controlled the precise timing at which music was orchestrated on the victrola also served to translate to physical space through a wingnut and reliably predict time itself given spacial indicators. by measuring the distance traveled by a wingnut on a threaded rod, controlled by the speed governor's regulation of the screw's rotational motion, I could accurately determine how much time had elapsed—creating an non-electronic timer.</p>
+      <p>The last slide shows me with my mentor who guided me throughout this project and helped me develop the technical skills needed to complete it successfully.</p>
+    </div>
+  </div>
 
-            tabs.forEach(tab => {
-                tab.addEventListener('click', () => {
-                    const sectionId = tab.dataset.section;
+  <div id="antenna" class="section-header">Antenna</div>
+  <div class="carousel-wrapper">
+    <div class="carousel-container">
+      <div class="carousel-slide">
+        <img src="Images/antenna.png" alt="Antenna">
+      </div>
+      <div class="carousel-slide">
+        <img src="Images/antennaingredients.png" alt="Antenna Parts">
+      </div>
+      <a class="carousel-prev">&#10094;</a>
+      <a class="carousel-next">&#10095;</a>
+    </div>
+    <div class="carousel-description">
+      <p>For one of my Science Olympiad competitions, I made a quadrifilar helix antenna operating at 2450 MHz that transmitted signals with remarkable reliability at maximum distance.</p>
+      <p>I specifically chose a quadrifilar helix design because of its hemispherical radiation pattern, think like a cardiod or a rounded cone shape centered around the antenna axis. This pattern provides excellent overhead coverage, is able to reject multipath signals (reflections from being inside) making the signal way clearer than a dipole, AND it uses energy more efficiently than a dipole because it doesn't point radiation towards the ground. The 3d printed housing made it super lightweight and durable. This made it a much safer bet for the competition environment compared to other antenna types.</p>
+      <p>The construction process involved precise measurements and careful assembly/soldering to ensure the helical elements were positioned correctly for the desired frequency. Yay for RF engineering principles and antenna design stuff.</p>
+    </div>
+  </div>
 
-                    // Remove active class from all tabs and sections
-                    tabs.forEach(t => t.classList.remove('active'));
-                    sections.forEach(s => s.classList.remove('active'));
+  <div id="making" class="section-header">Engineering Club</div>
+  <div class="carousel-wrapper">
+    <div class="carousel-container">
+      <div class="carousel-slide">
+        <img src="Images/meandknack.png" alt="Me and Mr. Knack">
+      </div>
+    </div>
+    <div class="carousel-description">
+      <p>I started the engineering club after realizing we could bring our science class designs to life through 3D printing. In Mr. Knack's class (pictured with me above), I learned TinkerCAD and discovered my passion for creating physical objects from digital designs.</p>
+      <p>Using my dad's 3D printer, I made all sorts of things - from fidget spinners that I sold during the 2016 election season to a TARDIS from Doctor Who for my teacher. I was fascinated by exploring new ways to use CAD software to design increasingly complex objects.</p>
+      <p>What started as curiosity turned into a skill that allowed me to create custom designs for classmates and teachers who wanted various items. Through the engineering club, we were able to collaborate on designs and share our knowledge with other students interested in making things.</p>
+      <p>The local paper even wrote an article about us! <a href="https://encorekalamazoo.com/not-so-weird-science/" target="_blank">Not-So-Weird Science (Encore Magazine)</a></p>
+    </div>
+  </div>
 
-                    // Add active class to clicked tab and corresponding section
-                    tab.classList.add('active');
-                    document.getElementById(sectionId).classList.add('active');
-                });
-            });
+  <footer>
+    <p>&copy; Verda Korzeniewski - Time Machine Project</p>
+  </footer>
 
-            // Activate home tab by default
-            tabs[0].click();
+  <script>
+    window.addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll('.carousel-container').forEach(carousel => {
+        const slides = carousel.querySelectorAll('.carousel-slide');
+        let index = 0;
+
+        if (slides.length <= 1) {
+          slides[0].style.display = 'block';
+          return;
+        }
+
+        const prev = carousel.querySelector('.carousel-prev');
+        const next = carousel.querySelector('.carousel-next');
+
+        const showSlide = n => {
+          slides.forEach(s => s.style.display = 'none');
+          slides[n].style.display = 'block';
+        };
+
+        prev.addEventListener('click', () => {
+          index = (index - 1 + slides.length) % slides.length;
+          showSlide(index);
         });
-    </script>
+
+        next.addEventListener('click', () => {
+          index = (index + 1) % slides.length;
+          showSlide(index);
+        });
+
+        showSlide(index);
+      });
+    });
+  </script>
 </body>
 </html>
