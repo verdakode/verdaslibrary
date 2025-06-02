@@ -119,7 +119,7 @@
       text-decoration: none;
       cursor: pointer;
     }
-    
+
     .modal-nav {
       cursor: pointer;
       position: absolute;
@@ -138,15 +138,15 @@
       z-index: 1001;
       transition: 0.3s;
     }
-    
+
     .modal-prev {
       left: 20px;
     }
-    
+
     .modal-next {
       right: 20px;
     }
-    
+
     .modal-nav:hover {
       background-color: rgba(0, 0, 0, 0.8);
       color: var(--accent-color);
@@ -273,7 +273,7 @@
         flex-direction: column;
         align-items: center;
       }
-      
+
       .modal-content {
         max-width: 95%;
       }
@@ -287,6 +287,7 @@
   </div>
 
   <nav class="main-nav">
+    <a href="#garage-factory">Online Garage Factory</a>
     <a href="#mechatronics">Mechatronics</a>
     <a href="#gravity">Gravity Escapement</a>
     <a href="#weighing">Weighing Things</a>
@@ -294,6 +295,20 @@
     <a href="#antenna">Antenna</a>
     <a href="#making">Engineering Club</a>
   </nav>
+
+  <div id="garage-factory" class="section-header">Online Garage Factory</div>
+  <div class="carousel-wrapper">
+    <div class="carousel-container">
+      <div class="carousel-slide">
+        <img src="makermesh.png" alt="Maker Mesh Platform">
+      </div>
+    </div>
+    <div class="carousel-description">
+      <p>basically this is a project I started because shipping 3d printed items is both silly and inefficient, you should be able to simply send a file somewhere and have it materialize. </p>
+      <p> I ended up creating <a href="https://makermesh.org" target="_blank">Maker Mesh</a> - a platform that connects people who need 3D printed objects with nearby makers who have 3D printers.</p>
+      <p>The concept is simple: when someone orders a 3D printed item, instead of shipping it across the country, I would find a maker in their local area who could print and deliver it for a fee. This approach dramatically reduced shipping costs, enabled much faster delivery times, and created income opportunities for people with 3D printers. It also was supposed to be proof that distributed, on-demand manufacturing could beat centralized production and traditional shipping for a niche subset of plastic items. unfortunately during this time I was not taking care of myself, became moderately depressed, and also I am somewhat of the opinion that 3d printed things need to advance in a bunch of ways (like maybe 3d printed robots?) to make this a profitable endeavor so this project is still pending</p>
+    </div>
+  </div>
 
   <div id="mechatronics" class="section-header">Mechatronics Table Project</div>
   <div class="carousel-wrapper">
@@ -510,33 +525,33 @@
       const galleryImages = document.querySelectorAll('.gallery-item img');
       const carouselImages = document.querySelectorAll('.carousel-slide img');
       const allImages = [...galleryImages, ...carouselImages];
-      
+
       // Function to navigate to previous/next image
       const navigateImage = (direction) => {
         const currentImage = document.querySelector(`img[src="${modalImg.src}"]`);
         const currentIndex = allImages.indexOf(currentImage);
-        
+
         if (currentIndex === -1) return;
-        
+
         let newIndex;
         if (direction === 'prev') {
           newIndex = (currentIndex - 1 + allImages.length) % allImages.length;
         } else {
           newIndex = (currentIndex + 1) % allImages.length;
         }
-        
+
         const newImage = allImages[newIndex];
         modalImg.src = newImage.src;
         captionText.innerHTML = newImage.alt;
       };
-      
+
       // Function to open modal
       const openModal = (img) => {
         modal.style.display = 'block';
         modalImg.src = img.src;
         captionText.innerHTML = img.alt;
       };
-      
+
       // Function to open PDF in new tab
       const openPDF = (pdfEmbed) => {
         window.open(pdfEmbed.getAttribute('src'), '_blank');
@@ -551,7 +566,7 @@
       carouselImages.forEach(img => {
         img.addEventListener('click', () => openModal(img));
       });
-      
+
       // Add click event to PDF embed's parent container
       document.querySelectorAll('.pdf-embed').forEach(embed => {
         const container = embed.closest('.gallery-item');
@@ -559,13 +574,13 @@
           container.addEventListener('click', () => openPDF(embed));
         }
       });
-      
+
       // Add navigation button functionality
       prevBtn.addEventListener('click', (e) => {
         e.stopPropagation(); // Prevent closing modal
         navigateImage('prev');
       });
-      
+
       nextBtn.addEventListener('click', (e) => {
         e.stopPropagation(); // Prevent closing modal
         navigateImage('next');
@@ -589,7 +604,7 @@
         if (e.key === 'Escape' && modal.style.display === 'block') {
           modal.style.display = 'none';
         }
-        
+
         // Support keyboard arrows for gallery navigation when modal is open
         if (modal.style.display === 'block') {
           if (e.key === 'ArrowLeft') {
