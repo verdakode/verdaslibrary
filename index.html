@@ -1,474 +1,259 @@
-<!-- FULL PAGE WITH FULL DESCRIPTIONS -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Verda Library</title>
-  <style>
-    :root {
-      --primary-color: #744700;
-      --accent-color: #ff1493;
-      --text-color: #333;
-      --background-color: #fefcd8;
-      --card-bg: #ffffff;
-      --card-border: #ddd;
-    }
-
-    body {
-      font-family: Arial, sans-serif;
-      line-height: 1.3;
-      margin: 0 auto;
-      padding: 10px;
-      max-width: 900px;
-      color: var(--text-color);
-      background-color: var(--background-color);
-      font-size: 14px;
-    }
-
-    .mechatronics-gallery, .table-gallery {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 10px;
-      padding: 15px;
-      background-color: var(--card-bg);
-    }
-
-    .gallery-item {
-      flex: 0 1 auto;
-      text-align: center;
-      margin-bottom: 10px;
-    }
-
-    .small-image img {
-      max-width: 250px;
-      height: auto;
-    }
-
-    .tiny-image img {
-      max-width: 180px;
-      height: 140px;
-      object-fit: cover;
-    }
-
-    .gallery-item img {
-      border-radius: 4px;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-      transition: transform 0.3s ease;
-    }
-
-    .gallery-item img:hover {
-      transform: scale(1.05);
-      cursor: pointer;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-    }
-
-    .table-gallery {
-      gap: 8px;
-    }
-
-    /* Modal styles for image enlargement */
-    .modal {
-      display: none;
-      position: fixed;
-      z-index: 1000;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      overflow: auto;
-      background-color: rgba(0,0,0,0.9);
-      backdrop-filter: blur(5px);
-    }
-
-    .modal-content {
-      margin: auto;
-      display: block;
-      max-width: 90%;
-      max-height: 90%;
-      position: relative;
-      top: 50%;
-      transform: translateY(-50%);
-    }
-
-    .modal-caption {
-      margin: 10px auto;
-      display: block;
-      width: 80%;
-      max-width: 700px;
-      text-align: center;
-      color: white;
-      padding: 10px;
-    }
-
-    .close {
-      position: absolute;
-      top: 20px;
-      right: 30px;
-      color: #f1f1f1;
-      font-size: 40px;
-      font-weight: bold;
-      transition: 0.3s;
-      z-index: 1001;
-    }
-
-    .close:hover,
-    .close:focus {
-      color: var(--accent-color);
-      text-decoration: none;
-      cursor: pointer;
-    }
-
-    .modal-nav {
-      cursor: pointer;
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      padding: 16px;
-      color: white;
-      font-weight: bold;
-      font-size: 30px;
-      background-color: rgba(0, 0, 0, 0.4);
-      border-radius: 50%;
-      width: 30px;
-      height: 30px;
-      text-align: center;
-      line-height: 30px;
-      z-index: 1001;
-      transition: 0.3s;
-    }
-
-    .modal-prev {
-      left: 20px;
-    }
-
-    .modal-next {
-      right: 20px;
-    }
-
-    .modal-nav:hover {
-      background-color: rgba(0, 0, 0, 0.8);
-      color: var(--accent-color);
-    }
-
-    .hero-banner {
-      background-color: var(--primary-color);
-      color: white;
-      padding: 15px;
-      text-align: center;
-      border-radius: 4px;
-      box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
-      margin-bottom: 20px;
-    }
-
-    .hero-banner h1 {
-      font-size: 1.8em;
-      margin: 0 0 10px;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
-
-    .main-nav {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      margin-bottom: 20px;
-    }
-
-    .main-nav a {
-      color: white;
-      background-color: var(--primary-color);
-      margin: 3px;
-      padding: 5px 10px;
-      text-decoration: none;
-      font-size: 0.8em;
-      border-radius: 3px;
-    }
-
-    .main-nav a:hover {
-      background-color: var(--accent-color);
-    }
-
-    .section-header {
-      text-align: center;
-      font-size: 1.2em;
-      margin: 20px 0 10px;
-      color: var(--primary-color);
-      text-transform: uppercase;
-      position: relative;
-    }
-
-    .section-header::after {
-      content: '';
-      display: block;
-      width: 50px;
-      height: 2px;
-      background: var(--accent-color);
-      margin: 5px auto;
-    }
-
-    .carousel-wrapper {
-      background-color: #f9f9f9;
-      border: 1px solid var(--card-border);
-      border-radius: 8px;
-      margin-bottom: 30px;
-      overflow: hidden;
-    }
-
-    .carousel-container {
-      position: relative;
-      overflow: hidden;
-    }
-
-    .carousel-slide {
-      display: none;
-      text-align: center;
-    }
-
-    .carousel-slide img {
-      width: 100%;
-      height: auto;
-      display: block;
-    }
-
-    .carousel-prev,
-    .carousel-next {
-      cursor: pointer;
-      position: absolute;
-      top: 50%;
-      padding: 16px;
-      color: white;
-      font-weight: bold;
-      font-size: 18px;
-      background-color: rgba(0, 0, 0, 0.3);
-      transform: translateY(-50%);
-    }
-
-    .carousel-next {
-      right: 0;
-    }
-
-    .carousel-prev:hover,
-    .carousel-next:hover {
-      background-color: rgba(0, 0, 0, 0.8);
-    }
-
-    .carousel-description {
-      padding: 15px;
-      background-color: var(--card-bg);
-      border-top: 3px solid var(--accent-color);
-    }
-
-    footer {
-      text-align: center;
-      font-size: 0.75em;
-      margin-top: 20px;
-      padding-top: 10px;
-      border-top: 1px solid var(--card-border);
-    }
-
-    @media (max-width: 768px) {
-      .main-nav {
-        flex-direction: column;
-        align-items: center;
-      }
-
-      .modal-content {
-        max-width: 95%;
-      }
-    }
-</style>
+  <title>Verda's Futuristic Project Library</title>
+  <link rel="stylesheet" href="styleone.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
   <div class="hero-banner">
-    <h1>Verda's Time Machine</h1>
-    <p>Science Olympiad 2022 Project</p>
+    <h1>Verda's Project Library</h1>
+    <p><i class="fas fa-rocket"></i> A Collection of Engineering and Maker Projects <i class="fas fa-cog"></i></p>
   </div>
 
   <nav class="main-nav">
-    <a href="#garage-factory">Online Garage Factory</a>
-    <a href="#mechatronics">Mechatronics</a>
-    <a href="#gravity">Gravity Escapement</a>
-    <a href="#weighing">Weighing Things</a>
-    <a href="#screenshots">Time Machine</a>
-    <a href="#antenna">Antenna</a>
-    <a href="#making">Engineering Club</a>
+    <a href="#my-websites"><i class="fas fa-globe"></i> My Websites</a>
+    <a href="#mechatronics"><i class="fas fa-robot"></i> Mechatronics</a>
+    <a href="#gravity"><i class="fas fa-balance-scale"></i> Gravity Escapement</a>
+    <a href="#weighing"><i class="fas fa-weight"></i> Weighing Things</a>
+    <a href="#time-machine"><i class="fas fa-clock"></i> Time Machine</a>
+    <a href="#antenna"><i class="fas fa-broadcast-tower"></i> Antenna</a>
+    <a href="#engineering-club"><i class="fas fa-users-cog"></i> Engineering Club</a>
   </nav>
 
-  <div id="garage-factory" class="section-header">Online Garage Factory</div>
-  <div class="carousel-wrapper">
-    <div class="carousel-container">
-      <div class="carousel-slide">
-        <img src="makermesh.png" alt="Maker Mesh Platform">
+  <div class="projects-container">
+    <div class="project-row" id="my-websites">
+      <div class="project-card">
+        <div class="project-header">Quantum Libris</div>
+        <div class="project-content">
+          <div class="project-media">
+            <div class="link-container">
+              <a href="https://quantumlibris.com" target="_blank" class="website-link">
+                <i class="fas fa-book-open"></i>
+                <span>Visit Quantum Libris</span>
+              </a>
+            </div>
+          </div>
+          <div class="project-description">
+            <p>Quantum Libris is my digital writing sanctuary, a wordcel wet dream of a website where I experiment with ideas and share my thoughts on topics that fascinate me.</p>
+            <p>Currently, I've only published a small collection of writings due to time constraints, but there's much more in the pipeline. I'm exploring themes that span from technology and science to philosophy and culture — all through my unique lens.</p>
+            <p>One of my visions for this platform is to expand it into a collaborative space where I can feature works from friends and fellow writers. I'm in the process of developing features that would make this possible, creating a digital anthology of diverse perspectives.</p>
+            <p>If you're interested in contributing or have suggestions for the platform, please reach out! Your interest might be just the motivation I need to accelerate the development of these collaborative features.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="project-card">
+        <div class="project-header">Maker Mesh</div>
+        <div class="project-content">
+          <div class="project-media">
+            <div class="link-container">
+              <a href="https://makermesh.org" target="_blank" class="website-link">
+                <i class="fas fa-cubes"></i>
+                <span>Visit Maker Mesh</span>
+              </a>
+            </div>
+          </div>
+          <div class="project-description">
+            <p>This is a project I started because shipping 3D printed items is both silly and inefficient; you should be able to simply send a file somewhere and have it materialize.</p>
+            <p>I ended up creating Maker Mesh - a platform that connects people who need 3D printed objects with nearby makers who have 3D printers.</p>
+            <p>The concept is simple: when someone orders a 3D printed item, instead of shipping it across the country, I would find a maker in their local area who could print and deliver it for a fee. This approach dramatically reduced shipping costs, enabled much faster delivery times, and created income opportunities for people with 3D printers.</p>
+            <p>It also was supposed to be proof that distributed, on-demand manufacturing could beat centralized production and traditional shipping for a niche subset of plastic items. Unfortunately during this time I was not taking care of myself, became moderately depressed, and also I am somewhat of the opinion that 3D printed things need to advance in a bunch of ways (like maybe 3D printed robots?) to make this a profitable endeavor so this project is still pending.</p>
+          </div>
+        </div>
       </div>
     </div>
-    <div class="carousel-description">
-      <p>basically this is a project I started because shipping 3d printed items is both silly and inefficient, you should be able to simply send a file somewhere and have it materialize. </p>
-      <p> I ended up creating <a href="https://makermesh.org" target="_blank">Maker Mesh</a> - a platform that connects people who need 3D printed objects with nearby makers who have 3D printers.</p>
-      <p>The concept is simple: when someone orders a 3D printed item, instead of shipping it across the country, I would find a maker in their local area who could print and deliver it for a fee. This approach dramatically reduced shipping costs, enabled much faster delivery times, and created income opportunities for people with 3D printers. It also was supposed to be proof that distributed, on-demand manufacturing could beat centralized production and traditional shipping for a niche subset of plastic items. unfortunately during this time I was not taking care of myself, became moderately depressed, and also I am somewhat of the opinion that 3d printed things need to advance in a bunch of ways (like maybe 3d printed robots?) to make this a profitable endeavor so this project is still pending</p>
-    </div>
-  </div>
 
-  <div id="mechatronics" class="section-header">Mechatronics Table Project</div>
-  <div class="carousel-wrapper">
-    <div class="table-gallery">
-      <div class="gallery-item tiny-image">
-        <img src="mechatronicstable/Prototype 1.png" alt="Table Prototype 1" loading="lazy" width="180">
+    <div class="project-row" id="mechatronics">
+      <div class="project-card">
+        <div class="project-header">Mechatronics Table Project</div>
+        <div class="project-content">
+          <div class="project-media">
+            <div class="gallery">
+              <div class="gallery-item">
+                <img src="mechatronicstable/Prototype 1.png" alt="Table Prototype 1" loading="lazy">
+              </div>
+              <div class="gallery-item">
+                <img src="mechatronicstable/Prototype 1-1.png" alt="Table Prototype 1 Detail" loading="lazy">
+              </div>
+              <div class="gallery-item">
+                <img src="mechatronicstable/Prototype 2.png" alt="Table Prototype 2" loading="lazy">
+              </div>
+              <div class="gallery-item">
+                <img src="mechatronicstable/Prototype 3 - Pinnacle Walnut and Pebble.PNG" alt="Table Prototype 3" loading="lazy">
+              </div>
+              <div class="gallery-item">
+                <img src="mechatronicstable/Joseph Table.JPEG" alt="Final Table Design" loading="lazy">
+              </div>
+              <div class="gallery-item">
+                <img src="mechatronicstable/Initial_Sketch.jpg" alt="Initial Table Sketch" loading="lazy">
+              </div>
+              <div class="gallery-item">
+                <img src="mechatronicstable/IMG_0750.jpg" alt="Table Construction Process" loading="lazy">
+              </div>
+              <div class="gallery-item">
+                <img src="mechatronicstable/IMG_0751.jpg" alt="Table Assembly" loading="lazy">
+              </div>
+            </div>
+          </div>
+          <div class="project-description">
+            <p>After speedrunning and completing the mechatronics curriculum a few weeks early, I was selected along with two other high-performing classmates to work on a <em>special</em> external project. We were tasked with designing and producing a custom desk for Mr. Hughes and co!</p>
+            <p>Our team went through a lot to do this, starting with my beautiful Westshore 3D drawing, then making a prototype out of cardboard, and eventually using SolidWorks, creating detailed technical drawings, and collaborating with welders and a corkboard company to bring our vision to life.</p>
+            <p>The project encompassed the entire engineering design process from initial concept sketches through final production. Mr. Hughes was very clear about our constraints although not so much about his tastes and preferences which of course we had to gently coax out of him. Eventually, we provided! Although I really wanted to do something a bit more unique, the project constraints led us to this <em>very functional</em> piece of custom furniture.</p>
+          </div>
+        </div>
       </div>
-      <div class="gallery-item tiny-image">
-        <img src="mechatronicstable/Prototype 1-1.png" alt="Table Prototype 1 Detail" loading="lazy" width="180">
-      </div>
-      <div class="gallery-item tiny-image">
-        <img src="mechatronicstable/Prototype 2.png" alt="Table Prototype 2" loading="lazy" width="180">
-      </div>
-      <div class="gallery-item tiny-image">
-        <img src="mechatronicstable/Prototype 3 - Pinnacle Walnut and Pebble.PNG" alt="Table Prototype 3" loading="lazy" width="180">
-      </div>
-      <div class="gallery-item tiny-image">
-        <img src="mechatronicstable/Joseph Table.JPEG" alt="Final Table Design" loading="lazy" width="180">
-      </div>
-      <div class="gallery-item tiny-image">
-        <embed src="mechatronicstable/brace_assembly_drawing (1).pdf" type="application/pdf" width="180" height="140" class="pdf-embed">
-      </div>
-      <div class="gallery-item tiny-image">
-        <img src="mechatronicstable/Initial_Sketch.jpg" alt="Initial Table Sketch" loading="lazy" width="180">
-      </div>
-      <div class="gallery-item tiny-image">
-        <img src="mechatronicstable/IMG_0750.jpg" alt="Table Construction Process" loading="lazy" width="180">
-      </div>
-      <div class="gallery-item tiny-image">
-        <img src="mechatronicstable/IMG_0751.jpg" alt="Table Assembly" loading="lazy" width="180">
-      </div>
-      <div class="gallery-item tiny-image">
-        <img src="mechatronicstable/IMG_0752.jpg" alt="Table Construction Detail" loading="lazy" width="180">
-      </div>
-      <div class="gallery-item tiny-image">
-        <img src="mechatronicstable/IMG_0755.jpg" alt="Table Manufacturing" loading="lazy" width="180">
-      </div>
-      <div class="gallery-item tiny-image">
-        <img src="mechatronicstable/IMG_0756.jpg" alt="Table Build Process" loading="lazy" width="180">
-      </div>
-      <div class="gallery-item tiny-image">
-        <img src="mechatronicstable/IMG_0757.jpg" alt="Final Table Assembly" loading="lazy" width="180">
-      </div>
-    </div>
-    <div class="carousel-description">
-      <p>After speedrunning and completing the mechatronics curriculum a few weeks early, I was selected along with two other high-performing classmates to work on a *special* external project. We were tasked with designing and producing a custom desk for mr hughes and co!!!!</p>
-      <p>Our team went through a lot to do this, starting with my beautiful yay westshore 3d drawing, then making a prototype out of cardboard, and eventually using SolidWorks, creating detailed technical drawings, and collaborating with welders and a corkboard company to bring our vision to life. The project encompassed the entire engineering design process from initial concept sketches through final production. Mr hughes was very clear about our constraints although not so much about his tastes and preferences which of course we had to gently coax out of him, eventually, we provided! although I really wanted to do something a bit more unique, the project constraints led us to this *very functional* piece of custom furniture.</p>
-    </div>
-  </div>
 
-  <div class="section-header">Mechatronics Program</div>
-  <div class="carousel-wrapper">
-    <div class="mechatronics-gallery">
-      <div class="gallery-item small-image">
-        <img src="drawing.PNG" alt="Engineering Drawing" loading="lazy" width="250">
-      </div>
-      <div class="gallery-item small-image">
-        <img src="hammer.PNG" alt="Machined Hammer" loading="lazy" width="250">
+      <div class="project-card">
+        <div class="project-header">Mechatronics Program</div>
+        <div class="project-content">
+          <div class="project-media">
+            <div class="gallery">
+              <div class="gallery-item">
+                <img src="drawing.PNG" alt="Engineering Drawing" loading="lazy">
+              </div>
+              <div class="gallery-item">
+                <img src="hammer.PNG" alt="Machined Hammer" loading="lazy">
+              </div>
+            </div>
+          </div>
+          <div class="project-description">
+            <p>I had my high school credits all done by senior year but my parents did not want me to graduate at 16 so I enrolled in local community college mechatronics for the year! For my entire senior year my schedule was calculus IRL, then sit in library, then lunch, then go to college for rest of school day (till 3:00pm).</p>
+            <p>I just wanted to learn SolidWorks and use their robot arm but along the way I <em>had to</em> get OSHA certified, so I could operate manual and CNC lathes and drill press, and stock cutter, and even had to get safety training for... using calipers???? Anyway, this all happened because in this class I learned SolidWorks for 3D modeling and technical drawings, and mastered CAM software for CNC programming.</p>
+            <p>Unfortunately I don't have a ton of pictures of this awesome experience but above you can see my technical drawing of a flange and a hammer I machined as part of the coursework! Notice that lovely knurl. Also turning brass is simply wonderful and manually machining with a lathe is <em>to this day</em> one of my favorite skills I've learned.</p>
+          </div>
+        </div>
       </div>
     </div>
-    <div class="carousel-description">
-      <p>Basically I had my high school credits all done by senior year but my parents did not want me to graduate at 16 so I enrolled in local community college mechatronics for the year! basically for my entire senior year my schedule was calculus irl, then sit in library, then lunch, then go to college for rest of school day (till 3:00pm). I just wanted to learn solid works and use their robot arm but along the way I *had to* get OSHA certified, so I could operate manual and CNC lathes and drill press, and stock cutter, and even had to get safety training for... using calipers???? bruh. anyway this all mhappened because in this class I learned SolidWorks for 3D modeling and technical drawings, and mastered CAM software for CNC programming. both of which were pretty useless unless I could actually make the things I designed on computer real, which I had only ever done through *additive* manufacturing.</p>
-      <p>Unfortunately I don't have a ton of pictures of this awesome experience but above you can see my technical drawing of a flange made gorgeous thank you snapchat. and a hammer I machined as part of the coursework! notice that lovely knurl. also turning brass is simply wonderful and manually machining with a lathe is *to this day* one of my favorite skills i've learned.</p>
-    </div>
-  </div>
 
-  <div id="gravity" class="section-header">Gravity Escapement</div>
-  <div class="carousel-wrapper">
-    <div class="carousel-container">
-      <div class="carousel-slide">
-        <img src="Images/gravityescapement.png" alt="Gravity Escapement">
+    <div class="project-row" id="gravity">
+      <div class="project-card">
+        <div class="project-header">Gravity Escapement</div>
+        <div class="project-content">
+          <div class="project-media">
+            <div class="carousel-container">
+              <div class="carousel-slide active">
+                <img src="Images/gravityescapement.png" alt="Gravity Escapement">
+              </div>
+            </div>
+          </div>
+          <div class="project-description">
+            <p>Gravity-powered escapement mechanism that uses the principles of mechanical timekeeping! I wound a string around the center of a gear mechanism and attached counterweights of various weights to test different timing intervals.</p>
+            <p>By carefully calibrating the counterweights, I was able to control how quickly the escapement mechanism would unwind. The heavier weights created more torque, causing faster unwinding, while lighter weights resulted in a slower, more controlled release of energy.</p>
+            <p>The escapement mechanism was designed with a small flag at the end of its cycle path. When the weighted string fully unwound, it would trigger the flag to raise, signaling the completion of the timing cycle. This visual indicator allowed for precise measurement of elapsed time without requiring any electronic components.</p>
+            <p>This experiment demonstrated how gravity can be harnessed as a consistent force for measuring time intervals, similar to principles used in traditional pendulum clocks.</p>
+          </div>
+        </div>
       </div>
     </div>
-    <div class="carousel-description">
-      <p>Gravity-powered escapement mechanism!!! that uses the principles of mechanical timekeeping. I wound a string around the center of a gear mechanism and attached counterweights of various weights to test different timing intervals.</p>
-      <p>By carefully calibrating the counterweights, I was able to control how quickly the escapement mechanism would unwind. The heavier weights created more torque, causing faster unwinding, while lighter weights resulted in a slower, more controlled release of energy.</p>
-      <p>The escapement mechanism was designed with a small flag at the end of its cycle path. When the weighted string fully unwound, it would trigger the flag to raise, signaling the completion of the timing cycle. This visual indicator allowed for precise measurement of elapsed time without requiring any electronic components.</p>
-      <p>This experiment demonstrated how gravity can be harnessed as a consistent force for measuring time intervals, similar to principles used in traditional pendulum clocks.</p>
-    </div>
-  </div>
 
-  <div id="weighing" class="section-header">Weighing Things</div>
-  <div class="carousel-wrapper">
-    <div class="carousel-container">
-      <div class="carousel-slide">
-        <img src="fsrproject.png" alt="FSR Weight Measurement Project">
+    <div class="project-row" id="weighing">
+      <div class="project-card">
+        <div class="project-header">Weighing Things</div>
+        <div class="project-content">
+          <div class="project-media">
+            <div class="carousel-container">
+              <div class="carousel-slide active">
+                <img src="fsrproject.png" alt="FSR Weight Measurement Project">
+              </div>
+            </div>
+          </div>
+          <div class="project-description">
+            <p>Digital weighing system using an Elegoo Mega microcontroller, a force sensing resistor (FSR), three colored LEDs, and an LCD display.</p>
+            <p>The system was designed to measure the mass of various small objects placed on the FSR. When an object was placed on the sensor, the microcontroller would calculate its mass based on the resistance change, display the measurement on the LCD screen, and light up one of three LEDs depending on which mass range the object fell into.</p>
+            <p>This project combined principles of electrical engineering and programming as I had to calibrate the FSR for accurate measurements, program the microcontroller to process the analog signals from the sensor, and create logic for the LED indicators to respond to different weight thresholds.</p>
+            <p>It was basically just a practical application of resistance-based sensing technology, making simple electronic components into useful measurement tools with visual feedback systems.</p>
+          </div>
+        </div>
       </div>
     </div>
-    <div class="carousel-description">
-      <p>Digital weighing system using an Elegoo Mega microcontroller, a force sensing resistor (FSR), three colored LEDs, and an LCD display.</p>
-      <p>The system was designed to measure the mass of various small objects placed on the FSR. When an object was placed on the sensor, the microcontroller would calculate its mass based on the resistance change, display the measurement on the LCD screen, and light up one of three LEDs depending on which mass range the object fell into.</p>
-      <p>This project combined principles of electrical engineering and programming as I had to calibrate the FSR for accurate measurements, program the microcontroller to process the analog signals from the sensor, and create logic for the LED indicators to respond to different weight thresholds.</p>
-      <p>It was basically just a practical application of resistance-based sensing technology, making simple electronic components into create useful measurement tools with visual feedback systems.</p>
-    </div>
-  </div>
 
-  <div id="screenshots" class="section-header">Time Machine</div>
-  <div class="carousel-wrapper">
-    <div class="carousel-container">
-      <div class="carousel-slide">
-        <img src="Images/slide1.png" alt="Slide 1">
+    <div class="project-row" id="time-machine">
+      <div class="project-card">
+        <div class="project-header">Time Machine</div>
+        <div class="project-content">
+          <div class="project-media">
+            <div class="carousel-container">
+              <div class="carousel-slide active">
+                <img src="Images/slide1.png" alt="Slide 1">
+              </div>
+              <div class="carousel-slide">
+                <img src="Images/meandviccy.png" alt="Me and Viccy">
+              </div>
+              <div class="carousel-slide">
+                <img src="Images/slide2.png" alt="Slide 2">
+              </div>
+              <div class="carousel-slide">
+                <img src="Images/slide3.png" alt="Slide 3">
+              </div>
+              <div class="carousel-slide">
+                <img src="Images/meandmentor.png" alt="Me and Mentor">
+              </div>
+              <a class="carousel-prev">&#10094;</a>
+              <a class="carousel-next">&#10095;</a>
+            </div>
+          </div>
+          <div class="project-description">
+            <p>This is a time measurement project I created when I was 16 years old for Science Olympiad 2022. I repurposed a mechanism from an old victrola record player and developed a mechanical time measurement system. During testing, I used an electric hand drill with a custom gear that matched the motor teeth for faster setup, but during the competition I used the traditional hand crank.</p>
+            <p>The project is about time, music, and space. Since music exists as patterns organized in time — a victrola motor is the perfect device to be repurposed as a timer. Perhaps less enjoyable, but the record player was broken and scrapped for parts, so I gave it a second life!</p>
+            <p>As opposed to visual arts which can only exist in space, music unfolds exclusively through time, so temporal organization is fundamental. The same governor mechanism that once controlled the precise timing at which music was orchestrated on the victrola also served to translate to physical space through a wingnut and reliably predict time itself given spatial indicators.</p>
+            <p>By measuring the distance traveled by a wingnut on a threaded rod, controlled by the speed governor's regulation of the screw's rotational motion, I could accurately determine how much time had elapsed—creating a non-electronic timer.</p>
+          </div>
+        </div>
       </div>
-      <div class="carousel-slide">
-        <img src="Images/meandviccy.png" alt="Me and Viccy">
-      </div>
-      <div class="carousel-slide">
-        <img src="Images/slide2.png" alt="Slide 2">
-      </div>
-      <div class="carousel-slide">
-        <img src="Images/slide3.png" alt="Slide 3">
-      </div>
-      <div class="carousel-slide">
-        <img src="Images/meandmentor.png" alt="Me and Mentor">
-      </div>
-      <a class="carousel-prev">&#10094;</a>
-      <a class="carousel-next">&#10095;</a>
     </div>
-    <div class="carousel-description">
-      <p>This is a time measurement project I created when I was 16 years old for Science Olympiad 2022. I repurposed a mechanism from an old victrola record player and developed a mechanical time measurement system. During testing, I used an electric hand drill with a custom gear that matched the motor teeth for faster setup, but during the competition I used the traditional hand crank.</p>
-      <p>The project is about time, music, and space. since music exists as patterns organized in time— a victrola motor is the perfect device to be repurposed as a timer. perhaps less enjoyable, but the record player was broken and scrapped for parts okay I gave it a second life! as opposed to visual arts which can only exist in space, music unfolds exclusively through time, so temporal organization is fundamental. the same governor mechanism that once controlled the precise timing at which music was orchestrated on the victrola also served to translate to physical space through a wingnut and reliably predict time itself given spacial indicators. by measuring the distance traveled by a wingnut on a threaded rod, controlled by the speed governor's regulation of the screw's rotational motion, I could accurately determine how much time had elapsed—creating an non-electronic timer.</p>
-      <p>The last slide shows me with my mentor who guided me throughout this project and helped me develop the technical skills needed to complete it successfully.</p>
-    </div>
-  </div>
 
-  <div id="antenna" class="section-header">Antenna</div>
-  <div class="carousel-wrapper">
-    <div class="carousel-container">
-      <div class="carousel-slide">
-        <img src="Images/antenna.png" alt="Antenna">
+    <div class="project-row" id="antenna">
+      <div class="project-card">
+        <div class="project-header">Antenna</div>
+        <div class="project-content">
+          <div class="project-media">
+            <div class="carousel-container">
+              <div class="carousel-slide active">
+                <img src="Images/antenna.png" alt="Antenna">
+              </div>
+              <div class="carousel-slide">
+                <img src="Images/antennaingredients.png" alt="Antenna Parts">
+              </div>
+              <a class="carousel-prev">&#10094;</a>
+              <a class="carousel-next">&#10095;</a>
+            </div>
+          </div>
+          <div class="project-description">
+            <p>For one of my Science Olympiad competitions, I made a quadrifilar helix antenna operating at 2450 MHz that transmitted signals with remarkable reliability at maximum distance.</p>
+            <p>I specifically chose a quadrifilar helix design because of its hemispherical radiation pattern, think like a cardioid or a rounded cone shape centered around the antenna axis. This pattern provides excellent overhead coverage, is able to reject multipath signals (reflections from being inside) making the signal way clearer than a dipole, AND it uses energy more efficiently than a dipole because it doesn't point radiation towards the ground.</p>
+            <p>The 3D printed housing made it super lightweight and durable. This made it a much safer bet for the competition environment compared to other antenna types. The construction process involved precise measurements and careful assembly/soldering to ensure the helical elements were positioned correctly for the desired frequency.</p>
+          </div>
+        </div>
       </div>
-      <div class="carousel-slide">
-        <img src="Images/antennaingredients.png" alt="Antenna Parts">
-      </div>
-      <a class="carousel-prev">&#10094;</a>
-      <a class="carousel-next">&#10095;</a>
     </div>
-    <div class="carousel-description">
-      <p>For one of my Science Olympiad competitions, I made a quadrifilar helix antenna operating at 2450 MHz that transmitted signals with remarkable reliability at maximum distance.</p>
-      <p>I specifically chose a quadrifilar helix design because of its hemispherical radiation pattern, think like a cardiod or a rounded cone shape centered around the antenna axis. This pattern provides excellent overhead coverage, is able to reject multipath signals (reflections from being inside) making the signal way clearer than a dipole, AND it uses energy more efficiently than a dipole because it doesn't point radiation towards the ground. The 3d printed housing made it super lightweight and durable. This made it a much safer bet for the competition environment compared to other antenna types.</p>
-      <p>The construction process involved precise measurements and careful assembly/soldering to ensure the helical elements were positioned correctly for the desired frequency. Yay for RF engineering principles and antenna design stuff.</p>
-    </div>
-  </div>
 
-  <div id="making" class="section-header">Engineering Club</div>
-  <div class="carousel-wrapper">
-    <div class="carousel-container">
-      <div class="carousel-slide">
-        <img src="Images/meandknack.png" alt="Me and Mr. Knack">
+    <div class="project-row" id="engineering-club">
+      <div class="project-card">
+        <div class="project-header">Engineering Club</div>
+        <div class="project-content">
+          <div class="project-media">
+            <div class="carousel-container">
+              <div class="carousel-slide active">
+                <img src="Images/meandknack.png" alt="Me and Mr. Knack">
+              </div>
+            </div>
+          </div>
+          <div class="project-description">
+            <p>I started the engineering club after realizing we could bring our science class designs to life through 3D printing. In Mr. Knack's class (pictured with me above), I learned TinkerCAD and discovered my passion for creating physical objects from digital designs.</p>
+            <p>Using my dad's 3D printer, I made all sorts of things - from fidget spinners that I sold during the 2016 election season to a TARDIS from Doctor Who for my teacher. I was fascinated by exploring new ways to use CAD software to design increasingly complex objects.</p>
+            <p>What started as curiosity turned into a skill that allowed me to create custom designs for classmates and teachers who wanted various items. Through the engineering club, we were able to collaborate on designs and share our knowledge with other students interested in making things.</p>
+            <p>The local paper even wrote an article about us! <a href="https://encorekalamazoo.com/not-so-weird-science/" target="_blank">Not-So-Weird Science (Encore Magazine)</a></p>
+          </div>
+        </div>
       </div>
-    </div>
-    <div class="carousel-description">
-      <p>I started the engineering club after realizing we could bring our science class designs to life through 3D printing. In Mr. Knack's class (pictured with me above), I learned TinkerCAD and discovered my passion for creating physical objects from digital designs.</p>
-      <p>Using my dad's 3D printer, I made all sorts of things - from fidget spinners that I sold during the 2016 election season to a TARDIS from Doctor Who for my teacher. I was fascinated by exploring new ways to use CAD software to design increasingly complex objects.</p>
-      <p>What started as curiosity turned into a skill that allowed me to create custom designs for classmates and teachers who wanted various items. Through the engineering club, we were able to collaborate on designs and share our knowledge with other students interested in making things.</p>
-      <p>The local paper even wrote an article about us! <a href="https://encorekalamazoo.com/not-so-weird-science/" target="_blank">Not-So-Weird Science (Encore Magazine)</a></p>
     </div>
   </div>
 
   <footer>
-    <p>&copy; Verda Korzeniewski - Time Machine Project</p>
+    <p>&copy; Verda Korzeniewski - Project Library</p>
   </footer>
 
   <!-- Image Modal -->
@@ -481,136 +266,153 @@
   </div>
 
   <script>
-    window.addEventListener('DOMContentLoaded', () => {
+    document.addEventListener('DOMContentLoaded', () => {
+      // Scroll to section when clicking navigation links
+      document.querySelectorAll('.main-nav a').forEach(link => {
+        link.addEventListener('click', function(e) {
+          e.preventDefault();
+          const targetId = this.getAttribute('href');
+          const targetSection = document.querySelector(targetId);
+          if (targetSection) {
+            targetSection.scrollIntoView({ behavior: 'smooth' });
+          }
+        });
+      });
+
+      // Add scroll arrows to project rows
+      document.querySelectorAll('.project-row').forEach(row => {
+        // Only add scroll arrows if there's more than one project card
+        if (row.querySelectorAll('.project-card').length > 1) {
+          const leftArrow = document.createElement('div');
+          leftArrow.className = 'scroll-arrow scroll-left';
+          leftArrow.innerHTML = '&#10094;';
+          
+          const rightArrow = document.createElement('div');
+          rightArrow.className = 'scroll-arrow scroll-right';
+          rightArrow.innerHTML = '&#10095;';
+          
+          row.appendChild(leftArrow);
+          row.appendChild(rightArrow);
+          
+          // Scroll functionality
+          leftArrow.addEventListener('click', () => {
+            row.scrollBy({ left: -400, behavior: 'smooth' });
+          });
+          
+          rightArrow.addEventListener('click', () => {
+            row.scrollBy({ left: 400, behavior: 'smooth' });
+          });
+        }
+      });
+
       // Carousel functionality
       document.querySelectorAll('.carousel-container').forEach(carousel => {
         const slides = carousel.querySelectorAll('.carousel-slide');
-        let index = 0;
-
-        if (slides.length <= 1) {
-          slides[0].style.display = 'block';
-          return;
-        }
-
+        if (slides.length <= 1) return;
+        
+        let currentIndex = 0;
         const prev = carousel.querySelector('.carousel-prev');
         const next = carousel.querySelector('.carousel-next');
-
-        const showSlide = n => {
-          slides.forEach(s => s.style.display = 'none');
-          slides[n].style.display = 'block';
+        
+        // Show first slide by default
+        slides[0].classList.add('active');
+        
+        const showSlide = (index) => {
+          slides.forEach(slide => slide.classList.remove('active'));
+          slides[index].classList.add('active');
+          currentIndex = index;
         };
-
-        prev.addEventListener('click', () => {
-          index = (index - 1 + slides.length) % slides.length;
-          showSlide(index);
-        });
-
-        next.addEventListener('click', () => {
-          index = (index + 1) % slides.length;
-          showSlide(index);
-        });
-
-        showSlide(index);
+        
+        if (prev && next) {
+          prev.addEventListener('click', () => {
+            const newIndex = (currentIndex - 1 + slides.length) % slides.length;
+            showSlide(newIndex);
+          });
+          
+          next.addEventListener('click', () => {
+            const newIndex = (currentIndex + 1) % slides.length;
+            showSlide(newIndex);
+          });
+        }
       });
 
-      // Image enlargement functionality
+      // Image modal functionality
       const modal = document.getElementById('imageModal');
       const modalImg = document.getElementById('modalImage');
       const captionText = document.getElementById('modalCaption');
       const closeBtn = document.querySelector('.close');
-      const prevBtn = document.querySelector('.modal-prev');
-      const nextBtn = document.querySelector('.modal-next');
-
-      // Get all images from gallery items and carousel slides
-      const galleryImages = document.querySelectorAll('.gallery-item img');
-      const carouselImages = document.querySelectorAll('.carousel-slide img');
-      const allImages = [...galleryImages, ...carouselImages];
-
-      // Function to navigate to previous/next image
-      const navigateImage = (direction) => {
-        const currentImage = document.querySelector(`img[src="${modalImg.src}"]`);
-        const currentIndex = allImages.indexOf(currentImage);
-
+      
+      // Function to open modal
+      const openModal = (img) => {
+        modal.style.display = 'block';
+        modalImg.src = img.src;
+        captionText.textContent = img.alt;
+      };
+      
+      // Add click listeners to all images
+      document.querySelectorAll('.gallery-item img, .carousel-slide img').forEach(img => {
+        img.addEventListener('click', () => openModal(img));
+      });
+      
+      // Close modal when clicking X or outside image
+      closeBtn.addEventListener('click', () => {
+        modal.style.display = 'none';
+      });
+      
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+          modal.style.display = 'none';
+        }
+      });
+      
+      // Modal navigation
+      const modalPrev = document.querySelector('.modal-prev');
+      const modalNext = document.querySelector('.modal-next');
+      
+      const navigateModal = (direction) => {
+        // Get all visible images from galleries and carousels
+        const allImages = [...document.querySelectorAll('.gallery-item img'), 
+                          ...document.querySelectorAll('.carousel-slide.active img')];
+        
+        // Find current image index
+        const currentSrc = modalImg.src;
+        const currentIndex = allImages.findIndex(img => img.src === currentSrc);
+        
         if (currentIndex === -1) return;
-
+        
+        // Calculate new index
         let newIndex;
         if (direction === 'prev') {
           newIndex = (currentIndex - 1 + allImages.length) % allImages.length;
         } else {
           newIndex = (currentIndex + 1) % allImages.length;
         }
-
+        
+        // Update modal image
         const newImage = allImages[newIndex];
         modalImg.src = newImage.src;
-        captionText.innerHTML = newImage.alt;
+        captionText.textContent = newImage.alt;
       };
-
-      // Function to open modal
-      const openModal = (img) => {
-        modal.style.display = 'block';
-        modalImg.src = img.src;
-        captionText.innerHTML = img.alt;
-      };
-
-      // Function to open PDF in new tab
-      const openPDF = (pdfEmbed) => {
-        window.open(pdfEmbed.getAttribute('src'), '_blank');
-      };
-
-      // Add click event to all gallery images
-      galleryImages.forEach(img => {
-        img.addEventListener('click', () => openModal(img));
+      
+      modalPrev.addEventListener('click', (e) => {
+        e.stopPropagation();
+        navigateModal('prev');
       });
-
-      // Add click event to all carousel images
-      carouselImages.forEach(img => {
-        img.addEventListener('click', () => openModal(img));
+      
+      modalNext.addEventListener('click', (e) => {
+        e.stopPropagation();
+        navigateModal('next');
       });
-
-      // Add click event to PDF embed's parent container
-      document.querySelectorAll('.pdf-embed').forEach(embed => {
-        const container = embed.closest('.gallery-item');
-        if (container) {
-          container.addEventListener('click', () => openPDF(embed));
-        }
-      });
-
-      // Add navigation button functionality
-      prevBtn.addEventListener('click', (e) => {
-        e.stopPropagation(); // Prevent closing modal
-        navigateImage('prev');
-      });
-
-      nextBtn.addEventListener('click', (e) => {
-        e.stopPropagation(); // Prevent closing modal
-        navigateImage('next');
-      });
-
-      // Close modal when clicking X
-      closeBtn.addEventListener('click', () => {
-        modal.style.display = 'none';
-      });
-
-      // Close modal when clicking outside the image
-      modal.addEventListener('click', (e) => {
-        if (e.target === modal) {
-          modal.style.display = 'none';
-        }
-      });
-
-      // Keyboard navigation for modal
+      
+      // Keyboard navigation
       document.addEventListener('keydown', (e) => {
-        // Close modal with escape key
-        if (e.key === 'Escape' && modal.style.display === 'block') {
-          modal.style.display = 'none';
-        }
-
-        // Support keyboard arrows for gallery navigation when modal is open
         if (modal.style.display === 'block') {
-          if (e.key === 'ArrowLeft') {
-            navigateImage('prev');
+          if (e.key === 'Escape') {
+            modal.style.display = 'none';
+          } else if (e.key === 'ArrowLeft') {
+            navigateModal('prev');
           } else if (e.key === 'ArrowRight') {
-            navigateImage('next');
+            navigateModal('next');
           }
         }
       });
